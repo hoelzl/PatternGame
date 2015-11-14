@@ -3,8 +3,10 @@
 #include "PG.h"
 #include "PGGameMode.h"
 #include "PGCharacter.h"
+#include "Kismet/GameplayStatics.h"
 
-APGGameMode::APGGameMode()
+APGGameMode::APGGameMode() :
+	DecayRate{ 0.01f }
 {
 #if 0
 	// set default pawn class to our Blueprinted character
@@ -16,4 +18,18 @@ APGGameMode::APGGameMode()
 #endif	
 	// set default pawn class to our character
 	DefaultPawnClass = APGCharacter::StaticClass();
+}
+
+void APGGameMode::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	APGCharacter* MyCharacter{ Cast<APGCharacter>(UGameplayStatics::GetPlayerPawn(this, 0)) };
+	if (MyCharacter)
+	{
+		if (MyCharacter->GetCurrentPower() > 0)
+		{
+			MyCharacter->UpdatePower(-DeltaTime * DecayRate * MyCharacter->GetInitialPower());
+		}
+	}
 }

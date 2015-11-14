@@ -2,6 +2,7 @@
 
 #include "PG.h"
 #include "PGCharacter.h"
+#include "BatteryPickup.h"
 #include "Pickup.h"
 
 //////////////////////////////////////////////////////////////////////////
@@ -16,7 +17,13 @@ APGCharacter::APGCharacter() :
 	// Create a follow camera
 	FollowCamera{ CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera")) },
 	// Create a collection sphere
-	CollectionSphere { CreateDefaultSubobject<USphereComponent>(TEXT("CollectionSphere")) }
+	CollectionSphere { CreateDefaultSubobject<USphereComponent>(TEXT("CollectionSphere")) },
+	// Set a base power level for the character
+	InitialPower{ 2000.f },
+	CurrentPower{ InitialPower },
+	// Set the dependence of the speed on the power level
+	SpeedFactor{ 0.75f },
+	BaseSpeed{ 10.0f }
 {
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
@@ -47,6 +54,14 @@ APGCharacter::APGCharacter() :
 	CollectionSphere->SetRelativeLocation(FVector(100.f, 0.f, 0.f));
 
 	ConfigureMeshAndAnimation();
+}
+
+void APGCharacter::UpdatePower(float PowerChange)
+{
+	CurrentPower += PowerChange;
+	GetCharacterMovement()->MaxWalkSpeed = BaseSpeed + SpeedFactor * CurrentPower;
+	// Apply visual effect
+	PowerChangeEffect();
 }
 
 void APGCharacter::ConfigureMeshAndAnimation()
@@ -112,6 +127,9 @@ void APGCharacter::CollectPickups()
 	TArray<AActor*> CollectedActors;
 	CollectionSphere->GetOverlappingActors(CollectedActors);
 
+	// Keep track of the collected battery power
+	float CollectedPower{ 0.f };
+
 	// For each Actor we collected
 	for (int32 iCollected = 0; iCollected < CollectedActors.Num(); ++iCollected)
 	{
@@ -122,9 +140,27 @@ void APGCharacter::CollectPickups()
 		if (TestPickup && !TestPickup->IsPendingKill() && TestPickup->IsActive())
 		{
 			TestPickup->WasCollected();
+			// Check to see if the Pickup is a battery
+			ABatteryPickup* const TestBattery{ Cast<ABatteryPickup>(TestPickup) };
+			if (TestBattery)
+			{
+				CollectedPower += TestBattery->GetBatteryPower();
+			}
 			TestPickup->SetActive(false);
 		}
 	}
+	if (CollectedPower > 0)
+	{
+		UpdatePower(CollectedPower);
+	}
+}
+
+void APGCharacter::PowerChangeEffect_Implementation()
+{
+	auto MeshComponent{ GetMesh() };
+	auto Mesh{ MeshComponent->SkeletalMesh };
+	auto Material{ Mesh->Materials[0] };
+	auto MaterialInterface{ Material.MaterialInterface };
 }
 
 void APGCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)

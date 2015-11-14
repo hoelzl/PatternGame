@@ -32,6 +32,21 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseLookUpRate;
 
+	/** Accessor function for initial power */
+	UFUNCTION(BlueprintPure, Category = "Power")
+	float GetInitialPower() const { return InitialPower; };
+
+	/** Accessor function for current power */
+	UFUNCTION(BlueprintPure, Category = "Power")
+	float GetCurrentPower() const { return CurrentPower; };
+
+	/** 
+	* Function to update the character's power
+	* @param PowerChange This is the amount to change the power by, and it can be positive or negative.
+	*/
+	UFUNCTION(BlueprintCallable, Category = "Power")
+	void UpdatePower(float PowerChange);
+
 protected:
 
 	/** Provide defaults for the mesh and animations */
@@ -69,6 +84,28 @@ protected:
 	/** Called when we press a key to collect all pickups inside the collection sphere */
 	UFUNCTION(BlueprintCallable, Category = "Pickups")
 	void CollectPickups();
+
+	/** The starting power level of our character */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))
+	float InitialPower;
+
+	/** Multiplier for character speed */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))
+	float SpeedFactor;
+
+	/** Speed when baseline power = 0 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))
+		float BaseSpeed;
+
+	/** Apply the visual effect */
+	UFUNCTION(BlueprintNativeEvent, Category = "Power", Meta = (BlueprintProtected = "true"))
+	void PowerChangeEffect();
+	virtual void PowerChangeEffect_Implementation();
+
+private:
+	/** Current power level of our character */
+	UPROPERTY(VisibleAnywhere, Category = "Power")
+	float CurrentPower;
 
 public:
 	/** Returns CameraBoom subobject **/
