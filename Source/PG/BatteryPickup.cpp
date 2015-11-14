@@ -1,4 +1,4 @@
-// Copyright (c) 2015, Matthias Hölzl
+// Copyright 2015 Matthias Hölzl, All Rights Reserved.
 
 #include "PG.h"
 #include "BatteryPickup.h"

@@ -1,4 +1,4 @@
-// Copyright (c) 2015, Matthias Hölzl
+// Copyright (c) 2015, Matthias Hölzl, All Rights Reserved.
 
 #pragma once
 
