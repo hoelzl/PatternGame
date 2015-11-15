@@ -26,6 +26,8 @@ class APGCharacter : public ACharacter
 public:
 	APGCharacter();
 
+	// Perform the work that has to be done after initializing the components, e.g., setting the PowerMaterial.
+	virtual void PostInitializeComponents() override;
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
@@ -96,8 +98,14 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))
     float BaseSpeed;
 
-    
-    /** The starting power level of our character */
+
+	/** The colors for 0 and full power, respectively */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))
+	FLinearColor ZeroPowerColor;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))
+	FLinearColor FullPowerColor;
+
+	/** The starting power level of our character */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))
     float InitialPower;
     
@@ -110,6 +118,11 @@ private:
 	/** Current power level of our character */
 	UPROPERTY(VisibleAnywhere, Category = "Power")
 	float CurrentPower;
+
+	UMaterialInstanceDynamic* CreateAndApplyPowerMaterial();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Power", Meta = (AllowPrivateAccess = "true"))
+	UMaterialInstanceDynamic* PowerMaterial;
 
 public:
 	/** Returns CameraBoom subobject **/

@@ -6,6 +6,8 @@
 #include "PGCharacter.h"
 #include "BatteryPickup.h"
 #include "Pickup.h"
+#include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetMathLibrary.h"
 
 //////////////////////////////////////////////////////////////////////////
 // APGCharacter
@@ -21,8 +23,11 @@ APGCharacter::APGCharacter() :
 	BaseTurnRate{ 45.f },
 	BaseLookUpRate{ 45.f },
     // Set the dependence of the speed on the power level
-    SpeedFactor{ 0.75f },
-    BaseSpeed{ 10.0f },
+    SpeedFactor{ 0.5f },
+    BaseSpeed{ 50.0f },
+	// Set the colors for 0 and full power
+	ZeroPowerColor{ FLinearColor::Black },
+	FullPowerColor{ FLinearColor::Yellow },
 	// Set a base power level for the character
 	InitialPower{ 2000.f },
 	CurrentPower{ InitialPower }
@@ -54,17 +59,12 @@ APGCharacter::APGCharacter() :
 	CollectionSphere->AttachTo(RootComponent);
 	CollectionSphere->SetSphereRadius(200.f);
 	CollectionSphere->SetRelativeLocation(FVector(100.f, 0.f, 0.f));
+	static FName CollectionSphereCollisionProfile = FName(TEXT("OverlapAllDynamic"));
+	CollectionSphere->SetCollisionProfileName(CollectionSphereCollisionProfile);
 
 	ConfigureMeshAndAnimation();
 }
 
-void APGCharacter::UpdatePower(float PowerChange)
-{
-	CurrentPower += PowerChange;
-	GetCharacterMovement()->MaxWalkSpeed = BaseSpeed + SpeedFactor * CurrentPower;
-	// Apply visual effect
-	PowerChangeEffect();
-}
 
 void APGCharacter::ConfigureMeshAndAnimation()
 {
@@ -92,6 +92,40 @@ void APGCharacter::ConfigureMeshAndAnimation()
 	{
 		GetMesh()->SetAnimInstanceClass(AnimBlueprintFinder.Object);
 	}
+}
+
+
+void APGCharacter::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+	PowerMaterial = CreateAndApplyPowerMaterial();
+}
+
+UMaterialInstanceDynamic* APGCharacter::CreateAndApplyPowerMaterial()
+{
+	USkeletalMeshComponent* MeshComponent = GetMesh();
+	check(MeshComponent && "No mesh component from which to create power material.");
+
+	UMaterialInterface* Material = MeshComponent->GetMaterial(0);
+	check(Material && "No material from which to create power material.");
+
+	UMaterialInstanceDynamic* DynamicMaterial = UMaterialInstanceDynamic::Create(Material, this);
+	// Set the mesh to the correct color; don't perform any of the additional activities
+	// PowerChangeEffect_Implementation();
+
+	MeshComponent->SetMaterial(0, DynamicMaterial);
+	// Mesh->Materials[0].MaterialInterface = DynamicMaterial;
+
+	return DynamicMaterial;
+}
+
+
+void APGCharacter::UpdatePower(float PowerChange)
+{
+	CurrentPower += PowerChange;
+	GetCharacterMovement()->MaxWalkSpeed = BaseSpeed + SpeedFactor * CurrentPower;
+	// Apply visual effect
+	PowerChangeEffect();
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -159,10 +193,10 @@ void APGCharacter::CollectPickups()
 
 void APGCharacter::PowerChangeEffect_Implementation()
 {
-	auto MeshComponent = GetMesh();
-	auto Mesh = MeshComponent->SkeletalMesh;
-	auto Material = Mesh->Materials[0];
-	auto MaterialInterface = Material.MaterialInterface;
+	float PowerRatio = FMath::Clamp(CurrentPower / (2 * InitialPower) - 0.25f, 0.f, 1.f);
+	FLinearColor Color = UKismetMathLibrary::LinearColorLerp(ZeroPowerColor, FullPowerColor, PowerRatio);
+
+	PowerMaterial->SetVectorParameterValue(FName(TEXT("BodyColor")), Color);
 }
 
 void APGCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)

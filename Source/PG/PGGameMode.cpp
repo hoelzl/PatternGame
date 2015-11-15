@@ -7,7 +7,7 @@
 #include "Kismet/GameplayStatics.h"
 
 APGGameMode::APGGameMode() :
-	DecayRate{ 0.01f }
+	DecayRate{ 0.05f }
 {
 #if 0
 	// set default pawn class to our Blueprinted character
