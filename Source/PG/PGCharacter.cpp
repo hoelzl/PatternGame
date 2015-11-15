@@ -11,21 +11,21 @@
 // APGCharacter
 
 APGCharacter::APGCharacter() :
-	// set our turn rates for input
+    // Create a camera boom (pulls in towards the player if there is a collision)
+    CameraBoom{ CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom")) },
+    // Create a follow camera
+    FollowCamera{ CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera")) },
+    // Create a collection sphere
+    CollectionSphere { CreateDefaultSubobject<USphereComponent>(TEXT("CollectionSphere")) },
+    // set our turn rates for input
 	BaseTurnRate{ 45.f },
 	BaseLookUpRate{ 45.f },
-	// Create a camera boom (pulls in towards the player if there is a collision)
-	CameraBoom{ CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom")) },
-	// Create a follow camera
-	FollowCamera{ CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera")) },
-	// Create a collection sphere
-	CollectionSphere { CreateDefaultSubobject<USphereComponent>(TEXT("CollectionSphere")) },
+    // Set the dependence of the speed on the power level
+    SpeedFactor{ 0.75f },
+    BaseSpeed{ 10.0f },
 	// Set a base power level for the character
 	InitialPower{ 2000.f },
-	CurrentPower{ InitialPower },
-	// Set the dependence of the speed on the power level
-	SpeedFactor{ 0.75f },
-	BaseSpeed{ 10.0f }
+	CurrentPower{ InitialPower }
 {
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
@@ -69,7 +69,7 @@ void APGCharacter::UpdatePower(float PowerChange)
 void APGCharacter::ConfigureMeshAndAnimation()
 {
 	// Configure the skeletal mesh and animation blueprints
-	static TCHAR* SkeletalMeshName{ TEXT("SkeletalMesh'/Game/Mannequin/Character/Mesh/SK_Mannequin.SK_Mannequin'") };
+	static auto SkeletalMeshName = TEXT("SkeletalMesh'/Game/Mannequin/Character/Mesh/SK_Mannequin.SK_Mannequin'");
 	static auto SkeletalMeshFinder = ConstructorHelpers::FObjectFinder<USkeletalMesh>(SkeletalMeshName);
 	if (SkeletalMeshFinder.Succeeded())
 	{
@@ -86,7 +86,7 @@ void APGCharacter::ConfigureMeshAndAnimation()
 		GetCapsuleComponent()->SetCollisionProfileName(CapsuleCollisionProfile);
 	}
 
-	static TCHAR* AnimBlueprintName{ TEXT("AnimBlueprint'/Game/Mannequin/Animations/ThirdPerson_AnimBP.ThirdPerson_AnimBP_C'") };
+	static auto AnimBlueprintName = TEXT("AnimBlueprint'/Game/Mannequin/Animations/ThirdPerson_AnimBP.ThirdPerson_AnimBP_C'");
 	static auto AnimBlueprintFinder = ConstructorHelpers::FObjectFinder<UAnimBlueprintGeneratedClass>(AnimBlueprintName);
 	if (AnimBlueprintFinder.Succeeded())
 	{
@@ -159,10 +159,10 @@ void APGCharacter::CollectPickups()
 
 void APGCharacter::PowerChangeEffect_Implementation()
 {
-	auto MeshComponent{ GetMesh() };
-	auto Mesh{ MeshComponent->SkeletalMesh };
-	auto Material{ Mesh->Materials[0] };
-	auto MaterialInterface{ Material.MaterialInterface };
+	auto MeshComponent = GetMesh();
+	auto Mesh = MeshComponent->SkeletalMesh;
+	auto Material = Mesh->Materials[0];
+	auto MaterialInterface = Material.MaterialInterface;
 }
 
 void APGCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)
