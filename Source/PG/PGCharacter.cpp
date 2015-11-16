@@ -13,12 +13,6 @@
 // APGCharacter
 
 APGCharacter::APGCharacter() :
-    // Create a camera boom (pulls in towards the player if there is a collision)
-    CameraBoom{ CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom")) },
-    // Create a follow camera
-    FollowCamera{ CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera")) },
-    // Create a collection sphere
-    CollectionSphere { CreateDefaultSubobject<USphereComponent>(TEXT("CollectionSphere")) },
     // set our turn rates for input
 	BaseTurnRate{ 45.f },
 	BaseLookUpRate{ 45.f },
@@ -47,15 +41,21 @@ APGCharacter::APGCharacter() :
 	GetCharacterMovement()->JumpZVelocity = 600.f;
 	GetCharacterMovement()->AirControl = 0.2f;
 
+	// Create a camera boom (pulls in towards the player if there is a collision)
+	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	// Configure the camera boom
 	CameraBoom->AttachTo(RootComponent);
 	CameraBoom->TargetArmLength = 300.0f; // The camera follows at this distance behind the character	
 	CameraBoom->bUsePawnControlRotation = true; // Rotate the arm based on the controller
 
+	// Create a follow camera
+	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	// Configure the follow camera
 	FollowCamera->AttachTo(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
+	// Create a collection sphere
+	CollectionSphere = CreateDefaultSubobject<USphereComponent>(TEXT("CollectionSphere"));
 	// Configure the collection sphere
 	CollectionSphere->AttachTo(RootComponent);
 	CollectionSphere->SetSphereRadius(200.f);

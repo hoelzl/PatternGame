@@ -8,11 +8,11 @@
 // Sets default values
 APickup::APickup()
 	: // All pickups start active
-	  bIsActive{true},
-	  PickupMesh{CreateDefaultSubobject<UStaticMeshComponent>("PickupMesh")}
+	  bIsActive{true}
 {
 	PrimaryActorTick.bCanEverTick = false;
 
+	PickupMesh = CreateDefaultSubobject<UStaticMeshComponent>("PickupMesh");
 	RootComponent = PickupMesh;
 }
 

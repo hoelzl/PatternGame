@@ -5,16 +5,16 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "Pickup.h"
 
-
 // Sets default values
 ASpawnVolume::ASpawnVolume() : 
-	// Create the BoxComponent to represent the spawn volume
-	WhereToSpawn{ CreateDefaultSubobject<UBoxComponent>(TEXT("WhereToSpawn")) },
 	// Set the spawn delay range
-	SpawnDelayRangeLow{1.0f},
-	SpawnDelayRangeHigh{4.5f}
+	SpawnDelayRangeLow{ 1.0f },
+	SpawnDelayRangeHigh{ 4.5f }
 {
 	PrimaryActorTick.bCanEverTick = false;
+
+	// Create the BoxComponent to represent the spawn volume
+	WhereToSpawn = CreateDefaultSubobject<UBoxComponent>(TEXT("WhereToSpawn"));
 	RootComponent = WhereToSpawn;
 }
 

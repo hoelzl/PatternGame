@@ -55,7 +55,7 @@ public:
 protected:
 
 	/** Provide defaults for the mesh and animations */
-	virtual void ConfigureMeshAndAnimation();
+	FORCEINLINE void ConfigureMeshAndAnimation();
 
 	/** Called for forwards/backward input */
 	void MoveForward(float Value);
