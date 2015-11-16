@@ -24,7 +24,8 @@ APGCharacter::APGCharacter() :
 	BaseLookUpRate{ 45.f },
     // Set the dependence of the speed on the power level
     SpeedFactor{ 0.5f },
-    BaseSpeed{ 50.0f },
+    BaseSpeed{ 100.0f },
+	MaxSpeed{ 800.0f },
 	// Set the colors for 0 and full power
 	ZeroPowerColor{ FLinearColor::Black },
 	FullPowerColor{ FLinearColor::Yellow },
@@ -123,7 +124,8 @@ UMaterialInstanceDynamic* APGCharacter::CreateAndApplyPowerMaterial()
 void APGCharacter::UpdatePower(float PowerChange)
 {
 	CurrentPower += PowerChange;
-	GetCharacterMovement()->MaxWalkSpeed = BaseSpeed + SpeedFactor * CurrentPower;
+	float NewSpeed = BaseSpeed + SpeedFactor * CurrentPower;
+	GetCharacterMovement()->MaxWalkSpeed = FMath::Clamp(NewSpeed, BaseSpeed, MaxSpeed);
 	// Apply visual effect
 	PowerChangeEffect();
 }
@@ -193,7 +195,7 @@ void APGCharacter::CollectPickups()
 
 void APGCharacter::PowerChangeEffect_Implementation()
 {
-	float PowerRatio = FMath::Clamp(CurrentPower / (2 * InitialPower) - 0.25f, 0.f, 1.f);
+	float PowerRatio = FMath::Clamp(CurrentPower / (2 * InitialPower) - 0.33f, 0.f, 1.f);
 	FLinearColor Color = UKismetMathLibrary::LinearColorLerp(ZeroPowerColor, FullPowerColor, PowerRatio);
 
 	PowerMaterial->SetVectorParameterValue(FName(TEXT("BodyColor")), Color);
