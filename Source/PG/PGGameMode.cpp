@@ -5,9 +5,11 @@
 #include "PGGameMode.h"
 #include "PGCharacter.h"
 #include "Kismet/GameplayStatics.h"
+#include "Blueprint/UserWidget.h"
 
 APGGameMode::APGGameMode() :
-	DecayRate{ 0.05f }
+	DecayRate{ 0.05f },
+	PowerToWinFactor{ 2.f }
 {
 #if 0
 	// set default pawn class to our Blueprinted character
@@ -19,6 +21,25 @@ APGGameMode::APGGameMode() :
 #endif	
 	// set default pawn class to our character
 	DefaultPawnClass = APGCharacter::StaticClass();
+}
+
+void APGGameMode::BeginPlay()
+{
+	Super::BeginPlay();
+
+	APGCharacter* PlayerCharacter = Cast<APGCharacter>(UGameplayStatics::GetPlayerCharacter(this, 0));
+	if (PlayerCharacter)
+	{
+		PowerToWin = PowerToWinFactor * PlayerCharacter->GetInitialPower();
+	}
+	if (HUDWidgetClass != nullptr)
+	{
+		CurrentWidget = CreateWidget<UUserWidget>(GetWorld(), HUDWidgetClass);
+		if (CurrentWidget != nullptr)
+		{
+			CurrentWidget->AddToViewport();
+		}
+	}
 }
 
 void APGGameMode::Tick(float DeltaTime)
@@ -33,4 +54,9 @@ void APGGameMode::Tick(float DeltaTime)
 			MyCharacter->UpdatePower(-DeltaTime * DecayRate * MyCharacter->GetInitialPower());
 		}
 	}
+}
+
+float APGGameMode::GetPowerToWin() const
+{
+	return PowerToWin;
 }
