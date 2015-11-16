@@ -5,6 +5,16 @@
 #include "GameFramework/GameMode.h"
 #include "PGGameMode.generated.h"
 
+// Store the current state of gameplay
+UENUM(BlueprintType)
+enum class EPGPlayState
+{
+	EPlaying,
+	EGameOver,
+	EWon,
+	EUnknown
+};
+
 UCLASS(minimalapi)
 class APGGameMode : public AGameMode
 {
@@ -24,6 +34,12 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Power")
 	float GetPowerToWin() const;
 
+	UFUNCTION(BlueprintPure, Category = "Victory")
+	EPGPlayState GetCurrentGameState() const;
+
+	UFUNCTION(BlueprintCallable, Category = "Victory")
+	void SetCurrentGameState(EPGPlayState NewState);
+
 protected:
 	// The rate at which the character loses power
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))
@@ -40,6 +56,15 @@ protected:
 	// The instance of the HUD, based on HUDWidgetClass;
 	UPROPERTY()
 	class UUserWidget* CurrentWidget;
+
+private:
+	// Keeps track of the current play state
+	EPGPlayState CurrentGameState;
+
+	TArray<class ASpawnVolume*> SpawnVolumeActors;
+
+	// This will handle any function calls that rely on changing the playing state of the game.
+	void HandleNewState(EPGPlayState NewState);
 };
 
 

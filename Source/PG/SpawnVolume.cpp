@@ -22,8 +22,6 @@ ASpawnVolume::ASpawnVolume() :
 void ASpawnVolume::BeginPlay()
 {
 	Super::BeginPlay();
-	UpdateSpawnTimer();
-
 }
 
 // Called every frame
@@ -38,6 +36,18 @@ FVector ASpawnVolume::GetRandomPointInVolume()
 	FVector SpawnExtent{ WhereToSpawn->Bounds.BoxExtent };
 
 	return UKismetMathLibrary::RandomPointInBoundingBox( SpawnOrigin, SpawnExtent );
+}
+
+void ASpawnVolume::SetSpawningActive(bool bShouldSpawn)
+{
+	if (bShouldSpawn)
+	{
+		UpdateSpawnTimer();
+	}
+	else
+	{
+		GetWorldTimerManager().ClearTimer(SpawnTimer);
+	}
 }
 
 void ASpawnVolume::SpawnPickup()

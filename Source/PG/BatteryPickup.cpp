@@ -7,7 +7,7 @@
 
 ABatteryPickup::ABatteryPickup() :
 	// The base power level of the battery
-	BatteryPower{ 150.f }
+	BatteryPower{ 250.f }
 {
 	// Assign a default static mesh
 	static auto StaticMeshName = TEXT("StaticMesh'/Game/ExampleContent/Blueprint_Communication/Meshes/SM_Battery_Medium.SM_Battery_Medium'");
