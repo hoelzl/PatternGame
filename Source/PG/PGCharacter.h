@@ -55,7 +55,7 @@ public:
 protected:
 
 	/** Provide defaults for the mesh and animations */
-	FORCEINLINE void ConfigureMeshAndAnimation();
+	void ConfigureMeshAndAnimation();
 
 	/** Called for forwards/backward input */
 	void MoveForward(float Value);
@@ -113,9 +113,8 @@ protected:
     float InitialPower;
     
 	/** Apply the visual effect */
-	UFUNCTION(BlueprintNativeEvent, Category = "Power", Meta = (BlueprintProtected = "true"))
-	void PowerChangeEffect();
-	virtual void PowerChangeEffect_Implementation();
+	UFUNCTION(BlueprintCallable, Category = "Power", Meta = (BlueprintProtected = "true"))
+	virtual void PowerChangeEffect();
 
 private:
 	/** Current power level of our character */

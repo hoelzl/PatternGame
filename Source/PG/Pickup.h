@@ -29,9 +29,8 @@ public:
 	void SetActive(bool NewPickupState);
 
 	// Function to call when the pickup is collected
-	UFUNCTION(BlueprintNativeEvent)
-	void WasCollected();
-	virtual void WasCollected_Implementation();
+	UFUNCTION(BlueprintCallable, Category = "Pickup")
+	virtual void WasCollected();
 
 protected:
 	// Sets default values for this actor's properties

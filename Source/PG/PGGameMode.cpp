@@ -133,7 +133,7 @@ void APGGameMode::HandleNewState(EPGPlayState NewState)
 		APlayerController* PlayerController{ UGameplayStatics::GetPlayerController(this, 0) };
 		if (PlayerController)
 		{
-			PlayerController->SetCinematicMode(true, false, false, true, true);
+			PlayerController->SetCinematicMode(true, false, false, true, false);
 		}
 		// Ragdoll the character
 		ACharacter* PlayerCharacter{ UGameplayStatics::GetPlayerCharacter(this, 0) };

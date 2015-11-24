@@ -38,7 +38,7 @@ void APickup::SetActive(bool NewPickupState)
 	bIsActive = NewPickupState;
 }
 
-void APickup::WasCollected_Implementation()
+void APickup::WasCollected()
 {
 	// Log a debug message
 	FString PickupDebugString{ GetName() };

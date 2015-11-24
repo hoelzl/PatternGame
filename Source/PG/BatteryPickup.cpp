@@ -33,9 +33,9 @@ void ABatteryPickup::DestroyBattery()
 	Destroy();
 }
 
-void ABatteryPickup::WasCollected_Implementation()
+void ABatteryPickup::WasCollected()
 {
-	Super::WasCollected_Implementation();
+	Super::WasCollected();
 
 	ParticleSystem = UGameplayStatics::SpawnEmitterAttached(ParticleSystemTemplate, GetMeshComponent(), NAME_None, (FVector)ForceInit, FRotator::ZeroRotator, EAttachLocation::SnapToTargetIncludingScale, true);
 	UpdateParticleSystemTargetLocation();

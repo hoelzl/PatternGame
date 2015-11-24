@@ -21,7 +21,7 @@ public:
 	void DestroyBattery();
 
 	// Override WasCollected function - use Implementation because it's a Blueprint Native Event
-	void WasCollected_Implementation() override;
+	void WasCollected() override;
 
 	// Public way to access the battery's power level
 	UFUNCTION(BlueprintPure, Category = "Power")

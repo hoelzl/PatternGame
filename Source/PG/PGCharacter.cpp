@@ -112,7 +112,7 @@ UMaterialInstanceDynamic* APGCharacter::CreateAndApplyPowerMaterial()
 
 	UMaterialInstanceDynamic* DynamicMaterial = UMaterialInstanceDynamic::Create(Material, this);
 	// Set the mesh to the correct color; don't perform any of the additional activities
-	// PowerChangeEffect_Implementation();
+	// PowerChangeEffect();
 
 	MeshComponent->SetMaterial(0, DynamicMaterial);
 	// Mesh->Materials[0].MaterialInterface = DynamicMaterial;
@@ -193,7 +193,7 @@ void APGCharacter::CollectPickups()
 	}
 }
 
-void APGCharacter::PowerChangeEffect_Implementation()
+void APGCharacter::PowerChangeEffect()
 {
 	float PowerRatio = FMath::Clamp(CurrentPower / (2 * InitialPower) - 0.33f, 0.f, 1.f);
 	FLinearColor Color = UKismetMathLibrary::LinearColorLerp(ZeroPowerColor, FullPowerColor, PowerRatio);
