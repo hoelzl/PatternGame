@@ -5,7 +5,7 @@
 #include "GameFramework/Actor.h"
 #include "Pickup.generated.h"
 
-UCLASS()
+UCLASS(Abstract)
 class PG_API APickup : public AActor
 {
 	GENERATED_BODY()
@@ -30,14 +30,41 @@ public:
 
 	// Function to call when the pickup is collected
 	UFUNCTION(BlueprintCallable, Category = "Pickup")
-	virtual void WasCollected();
+	virtual void WasCollected(class APGCharacter* Collector);
 
 protected:
 	// Sets default values for this actor's properties
 	APickup();
 
+	// Do whatever the pickup is supposed to do to the player
+	virtual void PerformPickupAction(class APGCharacter* Collector);
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))
+	float TimeUntilDestruction;
+
+	// Destroy all timers and then this actor
+	virtual void DestroyPickup();
+
 	// True when the pickup can be used, false when the pickup is deactivated
 	bool bIsActive;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))
+	UParticleSystem* ParticleSystemForActivePickupTemplate;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))
+	UParticleSystemComponent* ParticleSystemForActivePickup;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))
+	float TimeBetweenTargetLocationUpdates;
+
+	UFUNCTION(BlueprintCallable, Category = "Power")
+	virtual void UpdateTargetLocationOfParticleSystemForActivePickup();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))
+	UParticleSystem* ParticleSystemForDestroyedPickupTemplate;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))
+	UParticleSystemComponent* ParticleSystemForDestroyedPickup;
 
 private:
 	// Static mesh to represent the pickup in the level.

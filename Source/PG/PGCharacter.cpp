@@ -177,14 +177,7 @@ void APGCharacter::CollectPickups()
 		// If the cast is successful and the Pickup is valid and active
 		if (TestPickup && !TestPickup->IsPendingKill() && TestPickup->IsActive())
 		{
-			TestPickup->WasCollected();
-			// Check to see if the Pickup is a battery
-			ABatteryPickup* const TestBattery{ Cast<ABatteryPickup>(TestPickup) };
-			if (TestBattery)
-			{
-				CollectedPower += TestBattery->GetBatteryPower();
-			}
-			TestPickup->SetActive(false);
+			TestPickup->WasCollected(this);
 		}
 	}
 	if (CollectedPower > 0)

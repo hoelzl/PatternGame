@@ -2,6 +2,7 @@
 
 #include "PG.h"
 #include "BatteryPickup.h"
+#include "PGCharacter.h"
 #include "ConstructorHelpers.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -17,44 +18,13 @@ ABatteryPickup::ABatteryPickup() :
 		GetMeshComponent()->SetStaticMesh(MeshFinder.Object);
 	}
 	GetMeshComponent()->SetSimulatePhysics(true);
+}
 
-	static auto ParticleSystemTemplateName = TEXT("ParticleSystem'/Game/ExampleContent/Effects/ParticleSystems/P_electricity_arc.P_electricity_arc'");
-	static auto PSFinder = ConstructorHelpers::FObjectFinder<UParticleSystem>(ParticleSystemTemplateName);
-	if (PSFinder.Succeeded())
+void ABatteryPickup::PerformPickupAction(APGCharacter* Collector)
+{
+	if (Collector)
 	{
-		ParticleSystemTemplate = PSFinder.Object;
+		Collector->UpdatePower(BatteryPower);
 	}
 }
 
-
-void ABatteryPickup::DestroyBattery()
-{
-	AActor::GetWorldTimerManager().ClearAllTimersForObject(this);
-	Destroy();
-}
-
-void ABatteryPickup::WasCollected()
-{
-	Super::WasCollected();
-
-	ParticleSystem = UGameplayStatics::SpawnEmitterAttached(ParticleSystemTemplate, GetMeshComponent(), NAME_None, (FVector)ForceInit, FRotator::ZeroRotator, EAttachLocation::SnapToTargetIncludingScale, true);
-	UpdateParticleSystemTargetLocation();
-
-	FTimerManager &TimerManager = AActor::GetWorldTimerManager();
-	
-	FTimerHandle DestructionTimer;
-	auto DestructionDelegate = FTimerDelegate::CreateUObject(this, &ABatteryPickup::DestroyBattery);
-	TimerManager.SetTimer(DestructionTimer, DestructionDelegate, 2.f, false);
-
-	FTimerHandle UpdateTimer;
-	auto UpdateTargetLocationDelegate = FTimerDelegate::CreateUObject(this, &ABatteryPickup::UpdateParticleSystemTargetLocation);
-	TimerManager.SetTimer(UpdateTimer, UpdateTargetLocationDelegate, 0.05, true);
-}
-
-void ABatteryPickup::UpdateParticleSystemTargetLocation()
-{
-	ACharacter* PlayerCharacter = UGameplayStatics::GetPlayerCharacter(this, 0);
-	USkeletalMeshComponent* Mesh = PlayerCharacter->GetMesh();
-	FVector SocketLocation = Mesh->GetSocketLocation(TEXT("spine_02"));
-	ParticleSystem->SetBeamTargetPoint(0, SocketLocation, 0);
-}
