@@ -15,11 +15,11 @@ ASpawnVolume::ASpawnVolume() :
 {
 	PrimaryActorTick.bCanEverTick = false;
 
-	// PickupFactory = CreateDefaultSubobject<ASinglePickupTypeFactory>(TEXT("PickupFactory"));
-
 	// Create the BoxComponent to represent the spawn volume
 	WhereToSpawn = CreateDefaultSubobject<UBoxComponent>(TEXT("WhereToSpawn"));
 	RootComponent = WhereToSpawn;
+
+	// PickupFactory = CreateDefaultSubobject<USinglePickupTypeFactory>(TEXT("PickupFactory"));
 }
 
 // Called when the game starts or when spawned
@@ -56,8 +56,11 @@ void ASpawnVolume::SetSpawningActive(bool bShouldSpawn)
 
 void ASpawnVolume::SpawnPickup()
 {
-	PickupFactory->SpawnPickup(this, Instigator, GetRandomPointInVolume());
-	UpdateSpawnTimer();
+	if (PickupFactory)
+	{
+		PickupFactory->SpawnPickup(this, Instigator, GetRandomPointInVolume());
+		UpdateSpawnTimer();
+	}
 }
 
 void ASpawnVolume::UpdateSpawnTimer()
