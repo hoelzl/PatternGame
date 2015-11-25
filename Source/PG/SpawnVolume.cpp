@@ -2,6 +2,8 @@
 
 #include "PG.h"
 #include "SpawnVolume.h"
+#include "PickupFactory.h"
+#include "SinglePickupTypeFactory.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Pickup.h"
 
@@ -12,6 +14,8 @@ ASpawnVolume::ASpawnVolume() :
 	SpawnDelayRangeHigh{ 4.5f }
 {
 	PrimaryActorTick.bCanEverTick = false;
+
+	// PickupFactory = CreateDefaultSubobject<ASinglePickupTypeFactory>(TEXT("PickupFactory"));
 
 	// Create the BoxComponent to represent the spawn volume
 	WhereToSpawn = CreateDefaultSubobject<UBoxComponent>(TEXT("WhereToSpawn"));
@@ -52,26 +56,8 @@ void ASpawnVolume::SetSpawningActive(bool bShouldSpawn)
 
 void ASpawnVolume::SpawnPickup()
 {
-	if (WhatToSpawn != nullptr)
-	{
-		UWorld* const World = GetWorld();
-		if (World)
-		{
-			FActorSpawnParameters SpawnParams;
-			SpawnParams.Owner = this;
-			SpawnParams.Instigator = Instigator;
-
-			FVector SpawnLocation = GetRandomPointInVolume();
-
-			FRotator SpawnRotation;
-			SpawnRotation.Yaw = FMath::FRand() * 360.0f;
-			SpawnRotation.Pitch = FMath::FRand() * 360.0f;
-			SpawnRotation.Roll = FMath::FRand() * 360.0f;
-
-			APickup* const SpawnedPickup{ World->SpawnActor<APickup>(WhatToSpawn, SpawnLocation, SpawnRotation, SpawnParams)};
-			UpdateSpawnTimer();
-		}
-	}
+	PickupFactory->SpawnPickup(this, Instigator, GetRandomPointInVolume());
+	UpdateSpawnTimer();
 }
 
 void ASpawnVolume::UpdateSpawnTimer()
