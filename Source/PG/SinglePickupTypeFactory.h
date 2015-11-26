@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS(ClassGroup = "Spawning", meta = (BlueprintSpawnableComponent))
+UCLASS(AutoExpandCategories = "Spawning")
 class PG_API USinglePickupTypeFactory : public UPickupFactory
 {
 	GENERATED_BODY()
@@ -17,7 +17,7 @@ class PG_API USinglePickupTypeFactory : public UPickupFactory
 public:
 	USinglePickupTypeFactory();
 
-	UPROPERTY(EditAnywhere, Category = "Spawning")
+	UPROPERTY(EditAnywhere, NoClear, Category = "Spawning")
 	TSubclassOf<APickup> CreatedType;
 	
 	APickup* SpawnPickup(AActor* Owner, APawn* Instigator, FVector Location) override;

@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS(ClassGroup = "Spawning", meta = (BlueprintSpawnableComponent))
+UCLASS(AutoExpandCategories = "Spawning")
 class PG_API UTwoPickupTypesFactory : public UPickupFactory
 {
 	GENERATED_BODY()
@@ -17,14 +17,14 @@ class PG_API UTwoPickupTypesFactory : public UPickupFactory
 public:
 	UTwoPickupTypesFactory();
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Spawning")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, NoClear, Category = "Spawning")
 	TSubclassOf<APickup> CreatedType1;
 
 	// The probability of creating CreatedType1, in the range 0.0 .. 1.0
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Spawning")
 	float Type1Probability;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Spawning")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, NoClear, Category = "Spawning")
 	TSubclassOf<APickup> CreatedType2;
 
 	class APickup* SpawnPickup(AActor* Owner, APawn* Instigator, FVector Location) override;

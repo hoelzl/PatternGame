@@ -10,28 +10,10 @@ class APickup* UPickupFactory::SpawnPickup(AActor* Owner, APawn* Instigator, FVe
 	return nullptr;
 }
 
-void UPickupFactory::InitializeComponent()
-{
-	AActor* Owner = GetOwner();
-	if (Owner)
-	{
-		for (UActorComponent* Component : Owner->GetComponentsByClass(UActorComponent::StaticClass()))
-		{
-			if (Component && Component != this)
-			{
-				Component->DestroyComponent();
-			}
-		}
-	}
 
-}
-
-// Sets default values for this component's properties
 UPickupFactory::UPickupFactory()
 {
-	PrimaryComponentTick.bCanEverTick = false;
-	bAllowAnyoneToDestroyMe = true;
-	bWantsInitializeComponent = true;
+
 }
 
 class APickup* UPickupFactory::SpawnPickupOfType(TSubclassOf<APickup> Type, AActor* Owner, APawn* Instigator, FVector SpawnLocation)
@@ -55,4 +37,6 @@ class APickup* UPickupFactory::SpawnPickupOfType(TSubclassOf<APickup> Type, AAct
 	}
 	return nullptr;
 }
+
+
 

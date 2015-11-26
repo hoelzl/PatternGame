@@ -2,23 +2,22 @@
 
 #pragma once
 
-#include "Components/ActorComponent.h"
+#include "Object.h"
 #include "Pickup.h"
 #include "PickupFactory.generated.h"
 
-
-UCLASS(Abstract, EditInlineNew, ClassGroup = "Spawning", meta = (BlueprintSpawnableComponent))
-class PG_API UPickupFactory : public UActorComponent
+/**
+ * 
+ */
+UCLASS(Abstract, Blueprintable, EditInlineNew)
+class PG_API UPickupFactory : public UObject
 {
 	GENERATED_BODY()
-
-public:	
-	virtual APickup* SpawnPickup(AActor* Owner, APawn* Instigator, FVector SpawnLocation);
-
-	virtual void InitializeComponent() override;
+	
+public:
+	virtual APickup* SpawnPickup(AActor* Owner, APawn* Instigator, FVector SpawnLocation) ;
 
 protected:
-	// Sets default values for this component's properties
 	UPickupFactory();
 
 	APickup* SpawnPickupOfType(TSubclassOf<APickup> Type, AActor* Owner, APawn* Instigator, FVector SpawnLocation);

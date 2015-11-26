@@ -3,7 +3,7 @@
 #pragma once
 
 #include "GameFramework/Actor.h"
-#include "PickupFactory.h"
+#include "PickupFactoryComponent.h"
 #include "SpawnVolume.generated.h"
 
 UCLASS()
@@ -47,8 +47,8 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawning")
 	float SpawnDelayRangeHigh;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawning")
-	UPickupFactory* PickupFactory;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Spawning")
+	UPickupFactoryComponent* PickupFactoryComponent;
 
 private:
 	// Box component to specify where pickups should be spawned

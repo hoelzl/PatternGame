@@ -4,9 +4,6 @@
 #include "BatteryPickup.h"
 #include "SinglePickupTypeFactory.h"
 
-
-
-
 USinglePickupTypeFactory::USinglePickupTypeFactory()
 {
 	CreatedType = ABatteryPickup::StaticClass();

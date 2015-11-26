@@ -2,7 +2,7 @@
 
 #include "PG.h"
 #include "SpawnVolume.h"
-#include "PickupFactory.h"
+#include "PickupFactoryComponent.h"
 #include "SinglePickupTypeFactory.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Pickup.h"
@@ -19,7 +19,7 @@ ASpawnVolume::ASpawnVolume() :
 	WhereToSpawn = CreateDefaultSubobject<UBoxComponent>(TEXT("WhereToSpawn"));
 	RootComponent = WhereToSpawn;
 
-	// PickupFactory = CreateDefaultSubobject<USinglePickupTypeFactory>(TEXT("PickupFactory"));
+	PickupFactoryComponent = CreateDefaultSubobject<UPickupFactoryComponent>(TEXT("PickupFactory"));
 }
 
 // Called when the game starts or when spawned
@@ -56,9 +56,9 @@ void ASpawnVolume::SetSpawningActive(bool bShouldSpawn)
 
 void ASpawnVolume::SpawnPickup()
 {
-	if (PickupFactory)
+	if (PickupFactoryComponent)
 	{
-		PickupFactory->SpawnPickup(this, Instigator, GetRandomPointInVolume());
+		PickupFactoryComponent->SpawnPickup(this, Instigator, GetRandomPointInVolume());
 		UpdateSpawnTimer();
 	}
 }
