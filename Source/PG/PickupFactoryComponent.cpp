@@ -9,10 +9,13 @@
 UPickupFactoryComponent::UPickupFactoryComponent()
 {
 	PrimaryComponentTick.bCanEverTick = false;
-	PickupFactory = CreateDefaultSubobject<USinglePickupTypeFactory>("PickupFactory");
 }
 
 class APickup* UPickupFactoryComponent::SpawnPickup(AActor* Owner, APawn* Instigator, FVector SpawnLocation)
 {
-	return PickupFactory->SpawnPickup(Owner, Instigator, SpawnLocation);
+	if (PickupFactory)
+	{
+		return PickupFactory->SpawnPickup(Owner, Instigator, SpawnLocation);
+	}
+	return nullptr;
 }

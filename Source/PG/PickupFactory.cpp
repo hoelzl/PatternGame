@@ -13,14 +13,13 @@ class APickup* UPickupFactory::SpawnPickup(AActor* Owner, APawn* Instigator, FVe
 
 UPickupFactory::UPickupFactory()
 {
-
 }
 
 class APickup* UPickupFactory::SpawnPickupOfType(TSubclassOf<APickup> Type, AActor* Owner, APawn* Instigator, FVector SpawnLocation)
 {
 	if (Type != nullptr)
 	{
-		UWorld* const World = GetWorld();
+		UWorld* const World = Owner->GetWorld();
 		if (World)
 		{
 			FActorSpawnParameters SpawnParams;

@@ -6,8 +6,8 @@
 
 
 // Sets default values
-APickup::APickup()
-	: // All pickups start active
+APickup::APickup() : 
+	  // All pickups start active
 	  bIsActive{ true },
 	  TimeUntilDestruction{ 2.f },
 	  TimeBetweenTargetLocationUpdates{ 0.05 }
