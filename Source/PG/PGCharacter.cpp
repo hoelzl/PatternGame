@@ -130,34 +130,6 @@ void APGCharacter::UpdatePower(float PowerChange)
 	PowerChangeEffect();
 }
 
-//////////////////////////////////////////////////////////////////////////
-// Input
-
-void APGCharacter::SetupPlayerInputComponent(class UInputComponent* InputComponent)
-{
-	// Set up gameplay key bindings
-	check(InputComponent);
-	InputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
-	InputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
-
-	InputComponent->BindAction("Collect", IE_Pressed, this, &APGCharacter::CollectPickups);
-
-	InputComponent->BindAxis("MoveForward", this, &APGCharacter::MoveForward);
-	InputComponent->BindAxis("MoveRight", this, &APGCharacter::MoveRight);
-
-	// We have 2 versions of the rotation bindings to handle different kinds of devices differently
-	// "Turn" handles devices that provide an absolute delta, such as a mouse.
-	// "TurnrRte" is for devices that we choose to treat as a rate of change, such as an analog joystick
-	InputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);
-	InputComponent->BindAxis("TurnRate", this, &APGCharacter::TurnAtRate);
-	InputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
-	InputComponent->BindAxis("LookUpRate", this, &APGCharacter::LookUpAtRate);
-
-	// handle touch devices
-	InputComponent->BindTouch(IE_Pressed, this, &APGCharacter::TouchStarted);
-	InputComponent->BindTouch(IE_Released, this, &APGCharacter::TouchStopped);
-}
-
 
 void APGCharacter::CollectPickups()
 {

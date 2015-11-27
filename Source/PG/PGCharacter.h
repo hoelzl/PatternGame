@@ -57,6 +57,8 @@ protected:
 	/** Provide defaults for the mesh and animations */
 	void ConfigureMeshAndAnimation();
 
+public:
+
 	/** Called for forwards/backward input */
 	void MoveForward(float Value);
 
@@ -81,14 +83,13 @@ protected:
 	/** Handler for when a touch input stops. */
 	void TouchStopped(ETouchIndex::Type FingerIndex, FVector Location);
 
-protected:
-	// APawn interface
-	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
-	// End of APawn interface
+public:
 
 	/** Called when we press a key to collect all pickups inside the collection sphere */
 	UFUNCTION(BlueprintCallable, Category = "Pickups")
 	void CollectPickups();
+
+protected:
 
     /** Multiplier for character speed */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))
