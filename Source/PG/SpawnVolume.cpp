@@ -17,8 +17,6 @@ ASpawnVolume::ASpawnVolume() :
 	// Create the BoxComponent to represent the spawn volume
 	WhereToSpawn = CreateDefaultSubobject<UBoxComponent>(TEXT("WhereToSpawn"));
 	RootComponent = WhereToSpawn;
-
-	// PickupFactoryComponent = CreateDefaultSubobject<UPickupFactoryComponent>(TEXT("PickupFactory"));
 }
 
 // Called when the game starts or when spawned

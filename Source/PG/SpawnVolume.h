@@ -47,9 +47,6 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawning")
 	float SpawnDelayRangeHigh;
 
-	// UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Spawning")
-	// UPickupFactoryComponent* PickupFactoryComponent;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Instanced, Category = "Spawning")
 	UPickupFactory* PickupFactory;
 
