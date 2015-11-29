@@ -35,7 +35,10 @@ public:
 protected:
 	// Sets default values for this actor's properties
 	APickup();
-
+    
+    // True when the pickup can be used, false when the pickup is deactivated
+    bool bIsActive;
+    
 	// Do whatever the pickup is supposed to do to the player
 	virtual void PerformPickupAction(class APGCharacter* Collector);
 
@@ -44,9 +47,6 @@ protected:
 
 	// Destroy all timers and then this actor
 	virtual void DestroyPickup();
-
-	// True when the pickup can be used, false when the pickup is deactivated
-	bool bIsActive;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))
 	UParticleSystem* ParticleSystemForActivePickupTemplate;

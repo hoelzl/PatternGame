@@ -9,8 +9,8 @@
 #include "Blueprint/UserWidget.h"
 
 APGGameMode::APGGameMode() :
+    PowerToWinFactor{ 2.f },
 	DecayRate{ 0.05f },
-	PowerToWinFactor{ 2.f },
 	CurrentGameState{ EPGPlayState::EUnknown }
 {
 #if 0
