@@ -62,37 +62,6 @@ APGCharacter::APGCharacter() :
 	CollectionSphere->SetRelativeLocation(FVector(100.f, 0.f, 0.f));
 	static FName CollectionSphereCollisionProfile = FName(TEXT("OverlapAllDynamic"));
 	CollectionSphere->SetCollisionProfileName(CollectionSphereCollisionProfile);
-
-	ConfigureMeshAndAnimation();
-}
-
-
-void APGCharacter::ConfigureMeshAndAnimation()
-{
-	// Configure the skeletal mesh and animation blueprints
-	static auto SkeletalMeshName = TEXT("SkeletalMesh'/Game/Characters/Mannequin/Mesh/SK_Mannequin.SK_Mannequin'");
-	static auto SkeletalMeshFinder = ConstructorHelpers::FObjectFinder<USkeletalMesh>(SkeletalMeshName);
-	if (SkeletalMeshFinder.Succeeded())
-	{
-		auto MeshComponent = GetMesh();
-		MeshComponent->SetSkeletalMesh(SkeletalMeshFinder.Object);
-		MeshComponent->SetRelativeLocation(FVector(0.f, 0.f, -95.f));
-		MeshComponent->SetRelativeRotation(FRotator(0.f, 270.f, 0.f));
-
-		// TODO: Dynamically switch the collision profiles so that the mesh is toggled between "Character"
-		// and "Pawn" depending on whether the capsule registers an overlap.
-		static FName MeshCollisionProfile = FName(TEXT("Pawn"));
-		static FName CapsuleCollisionProfile = FName(TEXT("Spectator"));
-		MeshComponent->SetCollisionProfileName(MeshCollisionProfile);
-		GetCapsuleComponent()->SetCollisionProfileName(CapsuleCollisionProfile);
-	}
-
-	static auto AnimBlueprintName = TEXT("AnimBlueprint'/Game/Characters/Mannequin/Animations/ThirdPerson_AnimBP.ThirdPerson_AnimBP_C'");
-	static auto AnimBlueprintFinder = ConstructorHelpers::FObjectFinder<UAnimBlueprintGeneratedClass>(AnimBlueprintName);
-	if (AnimBlueprintFinder.Succeeded())
-	{
-		GetMesh()->SetAnimInstanceClass(AnimBlueprintFinder.Object);
-	}
 }
 
 
@@ -111,11 +80,8 @@ UMaterialInstanceDynamic* APGCharacter::CreateAndApplyPowerMaterial()
 	check(Material && "No material from which to create power material.");
 
 	UMaterialInstanceDynamic* DynamicMaterial = UMaterialInstanceDynamic::Create(Material, this);
-	// Set the mesh to the correct color; don't perform any of the additional activities
-	// PowerChangeEffect();
-
+	
 	MeshComponent->SetMaterial(0, DynamicMaterial);
-	// Mesh->Materials[0].MaterialInterface = DynamicMaterial;
 
 	return DynamicMaterial;
 }
@@ -130,6 +96,17 @@ void APGCharacter::UpdatePower(float PowerChange)
 	PowerChangeEffect();
 }
 
+
+void APGCharacter::ConfigureMeshCollision()
+{
+	auto MeshComponent = GetMesh();
+	// TODO: Dynamically switch the collision profiles so that the mesh is toggled between "Character"
+	// and "Pawn" depending on whether the capsule registers an overlap.
+	static FName MeshCollisionProfile = FName(TEXT("Pawn"));
+	static FName CapsuleCollisionProfile = FName(TEXT("Spectator"));
+	MeshComponent->SetCollisionProfileName(MeshCollisionProfile);
+	GetCapsuleComponent()->SetCollisionProfileName(CapsuleCollisionProfile);
+}
 
 void APGCharacter::CollectPickups()
 {

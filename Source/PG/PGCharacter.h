@@ -6,10 +6,18 @@
 #include "GameFramework/Character.h"
 #include "PGCharacter.generated.h"
 
-UCLASS(config=Game)
+UCLASS(Abstract, config=Game)
 class APGCharacter : public ACharacter
 {
 	GENERATED_BODY()
+
+protected:
+	APGCharacter();
+
+	// Perform the work that has to be done after initializing the components, e.g., setting the PowerMaterial.
+	virtual void PostInitializeComponents() override;
+
+private:
 
 	/** Camera boom positioning the camera behind the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
@@ -24,10 +32,6 @@ class APGCharacter : public ACharacter
 	class USphereComponent* CollectionSphere;
 
 public:
-	APGCharacter();
-
-	// Perform the work that has to be done after initializing the components, e.g., setting the PowerMaterial.
-	virtual void PostInitializeComponents() override;
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
@@ -54,8 +58,7 @@ public:
 
 protected:
 
-	/** Provide defaults for the mesh and animations */
-	void ConfigureMeshAndAnimation();
+	void ConfigureMeshCollision();
 
 public:
 
@@ -117,7 +120,7 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = "Power", Meta = (BlueprintProtected = "true"))
 	virtual void PowerChangeEffect();
 
-private:
+protected:
 	/** Current power level of our character */
 	UPROPERTY(VisibleAnywhere, Category = "Power")
 	float CurrentPower;

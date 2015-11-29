@@ -3,7 +3,8 @@
 
 #include "PG.h"
 #include "PGGameMode.h"
-#include "PGCharacter.h"
+#include "PGPlayerController.h"
+#include "RobotCharacter.h"
 #include "SpawnVolume.h"
 #include "Kismet/GameplayStatics.h"
 #include "Blueprint/UserWidget.h"
@@ -13,16 +14,16 @@ APGGameMode::APGGameMode() :
 	DecayRate{ 0.05f },
 	CurrentGameState{ EPGPlayState::EUnknown }
 {
-#if 0
-	// set default pawn class to our Blueprinted character
-	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/ThirdPersonCPP/Blueprints/ThirdPersonCharacter"));
-	if (PlayerPawnBPClass.Class != NULL)
-	{
-		DefaultPawnClass = PlayerPawnBPClass.Class;
-	}
-#endif	
 	// set default pawn class to our character
-	DefaultPawnClass = APGCharacter::StaticClass();
+	DefaultPawnClass = ARobotCharacter::StaticClass();
+	PlayerControllerClass = APGPlayerController::StaticClass();
+
+	static auto HUDBlueprintClassName = TEXT("WidgetBlueprint'/Game/Blueprints/BatteryHUD.BatteryHUD_C'");
+	static auto HUDFinder = ConstructorHelpers::FClassFinder<UUserWidget>(HUDBlueprintClassName);
+	if (HUDFinder.Succeeded())
+	{
+		HUDWidgetClass = HUDFinder.Class;
+	}
 }
 
 void APGGameMode::BeginPlay()
