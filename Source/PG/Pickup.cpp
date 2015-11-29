@@ -17,13 +17,13 @@ APickup::APickup() :
 	PickupMesh = CreateDefaultSubobject<UStaticMeshComponent>("PickupMesh");
 	RootComponent = PickupMesh;
 
-	static auto ActivePSTemplateName = TEXT("ParticleSystem'/Game/ExampleContent/Effects/ParticleSystems/P_electricity_arc.P_electricity_arc'");
+	static auto ActivePSTemplateName = TEXT("ParticleSystem'/Game/Effects/ParticleSystems/P_electricity_arc.P_electricity_arc'");
 	static auto ActivePSFinder = ConstructorHelpers::FObjectFinder<UParticleSystem>(ActivePSTemplateName);
 	if (ActivePSFinder.Succeeded())
 	{
 		ParticleSystemForActivePickupTemplate = ActivePSFinder.Object;
 	}
-	static auto DestroyedPSTemplateName = TEXT("ParticleSystem'/Game/Environment/Effects/particles/P_Dwarf_Death_Pile_01.P_Dwarf_Death_Pile_01'");
+	static auto DestroyedPSTemplateName = TEXT("ParticleSystem'/Game/Effects/ParticleSystems/P_Dwarf_Death_Pile_01.P_Dwarf_Death_Pile_01'");
 	static auto DestroyedPSFinder = ConstructorHelpers::FObjectFinder<UParticleSystem>(DestroyedPSTemplateName);
 	if (DestroyedPSFinder.Succeeded())
 	{

@@ -70,7 +70,7 @@ APGCharacter::APGCharacter() :
 void APGCharacter::ConfigureMeshAndAnimation()
 {
 	// Configure the skeletal mesh and animation blueprints
-	static auto SkeletalMeshName = TEXT("SkeletalMesh'/Game/Mannequin/Character/Mesh/SK_Mannequin.SK_Mannequin'");
+	static auto SkeletalMeshName = TEXT("SkeletalMesh'/Game/Characters/Mannequin/Mesh/SK_Mannequin.SK_Mannequin'");
 	static auto SkeletalMeshFinder = ConstructorHelpers::FObjectFinder<USkeletalMesh>(SkeletalMeshName);
 	if (SkeletalMeshFinder.Succeeded())
 	{
@@ -87,7 +87,7 @@ void APGCharacter::ConfigureMeshAndAnimation()
 		GetCapsuleComponent()->SetCollisionProfileName(CapsuleCollisionProfile);
 	}
 
-	static auto AnimBlueprintName = TEXT("AnimBlueprint'/Game/Mannequin/Animations/ThirdPerson_AnimBP.ThirdPerson_AnimBP_C'");
+	static auto AnimBlueprintName = TEXT("AnimBlueprint'/Game/Characters/Mannequin/Animations/ThirdPerson_AnimBP.ThirdPerson_AnimBP_C'");
 	static auto AnimBlueprintFinder = ConstructorHelpers::FObjectFinder<UAnimBlueprintGeneratedClass>(AnimBlueprintName);
 	if (AnimBlueprintFinder.Succeeded())
 	{
