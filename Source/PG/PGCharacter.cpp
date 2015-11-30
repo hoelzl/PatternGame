@@ -6,7 +6,6 @@
 #include "PGCharacter.h"
 #include "BatteryPickup.h"
 #include "Pickup.h"
-#include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 
 //////////////////////////////////////////////////////////////////////////

@@ -15,7 +15,7 @@ enum class EPGPlayState
 	EUnknown
 };
 
-UCLASS(minimalapi)
+UCLASS()
 class APGGameMode : public AGameMode
 {
 	GENERATED_BODY()

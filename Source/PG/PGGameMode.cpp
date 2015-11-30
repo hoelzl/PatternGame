@@ -14,7 +14,7 @@ APGGameMode::APGGameMode() :
 	DecayRate{ 0.05f },
 	CurrentGameState{ EPGPlayState::EUnknown }
 {
-	// set default pawn class to our character
+	// set default pawn class for our character
 	DefaultPawnClass = ARobotCharacter::StaticClass();
 	PlayerControllerClass = APGPlayerController::StaticClass();
 
