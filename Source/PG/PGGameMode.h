@@ -55,7 +55,7 @@ protected:
 
 	// The instance of the HUD, based on HUDWidgetClass;
 	UPROPERTY()
-	class UUserWidget* CurrentWidget;
+	class UUserWidget* HUDWidget;
 
 private:
 	// Keeps track of the current play state

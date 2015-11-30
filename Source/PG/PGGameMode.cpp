@@ -55,10 +55,10 @@ void APGGameMode::BeginPlay()
 	// Set up the HUD
 	if (HUDWidgetClass != nullptr)
 	{
-		CurrentWidget = CreateWidget<UUserWidget>(GetWorld(), HUDWidgetClass);
-		if (CurrentWidget != nullptr)
+		HUDWidget = CreateWidget<UUserWidget>(GetWorld(), HUDWidgetClass);
+		if (HUDWidget != nullptr)
 		{
-			CurrentWidget->AddToViewport();
+			HUDWidget->AddToViewport();
 		}
 	}
 }
