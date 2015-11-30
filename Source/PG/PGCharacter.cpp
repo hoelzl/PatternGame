@@ -140,7 +140,7 @@ void APGCharacter::PowerChangeEffect()
 	float PowerRatio = FMath::Clamp(CurrentPower / (2 * InitialPower) - 0.33f, 0.f, 1.f);
 	FLinearColor Color = UKismetMathLibrary::LinearColorLerp(ZeroPowerColor, FullPowerColor, PowerRatio);
 
-	PowerMaterial->SetVectorParameterValue(FName(TEXT("BodyColor")), Color);
+	PowerMaterial->SetVectorParameterValue(PowerChangeParameter, Color);
 }
 
 void APGCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)
