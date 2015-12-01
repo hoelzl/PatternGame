@@ -3,6 +3,7 @@
 
 #include "PG.h"
 #include "PGGameMode.h"
+#include "PGGameInstance.h"
 #include "PGPlayerController.h"
 #include "RobotCharacter.h"
 #include "SpawnVolume.h"
@@ -14,8 +15,21 @@ APGGameMode::APGGameMode() :
 	DecayRate{ 0.05f },
 	CurrentGameState{ EPGPlayState::EUnknown }
 {
-	// set default pawn class for our character
-	DefaultPawnClass = ARobotCharacter::StaticClass();
+
+	UWorld* World = GetWorld();
+	UGameInstance* GameInstance = (World != nullptr) ? World->GetGameInstance() : nullptr;
+	UPGGameInstance* PGGameInstance = Cast<UPGGameInstance>(GameInstance);
+
+	if (PGGameInstance && PGGameInstance->PlayerCharacterClass)
+	{
+		DefaultPawnClass = PGGameInstance->PlayerCharacterClass;
+	}
+	else
+	{
+		DefaultPawnClass = ARobotCharacter::StaticClass();
+	}
+	check(DefaultPawnClass);
+
 	PlayerControllerClass = APGPlayerController::StaticClass();
 
 	static auto HUDBlueprintClassName = TEXT("WidgetBlueprint'/Game/Blueprints/BatteryHUD.BatteryHUD_C'");
@@ -29,7 +43,6 @@ APGGameMode::APGGameMode() :
 void APGGameMode::BeginPlay()
 {
 	Super::BeginPlay();
-
 
 	// Find all spawn volumes
 	TArray<AActor*> FoundActors;
