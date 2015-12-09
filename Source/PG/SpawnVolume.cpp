@@ -1,8 +1,10 @@
 // Copyright 2015 Matthias Hölzl, All Rights Reserved.
 
 #include "PG.h"
+#include "PGGameMode.h"
 #include "SpawnVolume.h"
 #include "SinglePickupTypeFactory.h"
+#include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Pickup.h"
 
@@ -23,12 +25,14 @@ ASpawnVolume::ASpawnVolume() :
 void ASpawnVolume::BeginPlay()
 {
 	Super::BeginPlay();
-}
+	UWorld* World = GetWorld();
+	check(World && "Spawned actor while world does not exist?");
 
-// Called every frame
-void ASpawnVolume::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
+	APGGameMode* GameMode{ Cast<APGGameMode>(UGameplayStatics::GetGameMode(this)) };
+	if (GameMode && !GameMode->IsPendingKill())
+	{
+		GameMode->RegisterSpawnVolume(this);
+	}
 }
 
 FVector ASpawnVolume::GetRandomPointInVolume()

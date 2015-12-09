@@ -44,18 +44,6 @@ void APGGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// Find all spawn volumes
-	TArray<AActor*> FoundActors;
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ASpawnVolume::StaticClass(), FoundActors);
-	for (auto Actor : FoundActors)
-	{
-		ASpawnVolume* SpawnVolumeActor = Cast<ASpawnVolume>(Actor);
-		if (SpawnVolumeActor)
-		{
-			SpawnVolumeActors.AddUnique(SpawnVolumeActor);
-		}
-	}
-
 	SetCurrentGameState(EPGPlayState::EPlaying);
 
 	// Set up victory conditions
@@ -112,6 +100,12 @@ void APGGameMode::SetCurrentGameState(EPGPlayState NewState)
 {
 	CurrentGameState = NewState;
 	HandleNewState(NewState);
+}
+
+void APGGameMode::RegisterSpawnVolume(class ASpawnVolume* SpawnVolume)
+{
+	SpawnVolumeActors.AddUnique(SpawnVolume);
+	HandleNewState(CurrentGameState);
 }
 
 void APGGameMode::HandleNewState(EPGPlayState NewState)

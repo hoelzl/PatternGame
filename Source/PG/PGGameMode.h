@@ -63,6 +63,10 @@ private:
 
 	TArray<class ASpawnVolume*> SpawnVolumeActors;
 
+public:
+	void RegisterSpawnVolume(class ASpawnVolume* SpawnVolume);
+
+protected:
 	// This will handle any function calls that rely on changing the playing state of the game.
 	void HandleNewState(EPGPlayState NewState);
 };
