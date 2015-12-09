@@ -1,6 +1,10 @@
 # Gitignore file taken from
 # https://github.com/samsheff/UE4-Gitignore/
 
+# Emacs backup files
+*~
+.#*
+
 # Unknown purpose, probably to avoid conflicts?
 PG.VC.opendb
 
