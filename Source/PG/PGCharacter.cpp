@@ -6,6 +6,7 @@
 #include "PGCharacter.h"
 #include "BatteryPickup.h"
 #include "Pickup.h"
+#include "PickupHandler.h"
 #include "Kismet/KismetMathLibrary.h"
 
 //////////////////////////////////////////////////////////////////////////
@@ -85,6 +86,16 @@ UMaterialInstanceDynamic* APGCharacter::CreateAndApplyPowerMaterial()
 	return DynamicMaterial;
 }
 
+void APGCharacter::HandlePickup(APickup* Pickup)
+{
+    for (UPickupHandler* Handler : PickupHandlers)
+    {
+        if (Handler->HandlePickup(this, Pickup))
+        {
+            break;
+        }
+    }
+}
 
 void APGCharacter::UpdatePower(float PowerChange)
 {

@@ -4,6 +4,7 @@
 
 #pragma once
 #include "GameFramework/Character.h"
+#include "PickupHandler.h"
 #include "PGCharacter.generated.h"
 
 UCLASS(Abstract, config=Game)
@@ -31,6 +32,14 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Pickup, meta = (AllowPrivateAccess = "true"))
 	class USphereComponent* CollectionSphere;
 
+protected:
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Pickup)
+    TArray<UPickupHandler*> PickupHandlers;
+    
+public:
+    UFUNCTION(BlueprintCallable, Category = Pickup)
+    virtual void HandlePickup(class APickup* Pickup);
+    
 public:
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
