@@ -12,12 +12,3 @@ APowerChangingPickup::APowerChangingPickup() :
 	Power{ 0.f }
 {
 }
-
-
-void APowerChangingPickup::PerformPickupAction(APGCharacter* Collector)
-{
-	if (Collector)
-	{
-		Collector->UpdatePower(Power);
-	}
-}

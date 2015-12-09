@@ -1,6 +1,7 @@
 // Copyright (c) 2015, Matthias Hölzl
 
 #include "PG.h"
+#include "RobotPowerChangingPickupHandler.h"
 #include "RobotCharacter.h"
 
 
@@ -8,6 +9,7 @@ ARobotCharacter::ARobotCharacter()
 {
 	PowerChangeParameter = FName(TEXT("BodyColor"));
 	ConfigureMeshAndAnimation();
+	PickupHandlers.Add(NewObject<URobotPowerChangingPickupHandler>(this, FName(TEXT("RobotDefaultPickupHandler"))));
 }
 
 void ARobotCharacter::ConfigureMeshAndAnimation()

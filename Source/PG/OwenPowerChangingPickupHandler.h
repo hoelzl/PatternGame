@@ -13,7 +13,7 @@ class PG_API UOwenPowerChangingPickupHandler : public UPickupHandler
 {
 	GENERATED_BODY()
 	
-	
-	
+public:
+	virtual bool HandlePickup(AActor* Collector, class APickup* Pickup) override;
 	
 };

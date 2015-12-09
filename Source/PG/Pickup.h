@@ -38,9 +38,6 @@ protected:
     
     // True when the pickup can be used, false when the pickup is deactivated
     bool bIsActive;
-    
-	// Do whatever the pickup is supposed to do to the player
-	virtual void PerformPickupAction(class APGCharacter* Collector);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))
 	float TimeUntilDestruction;

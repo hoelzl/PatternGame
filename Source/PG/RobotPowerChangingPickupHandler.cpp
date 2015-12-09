@@ -4,10 +4,10 @@
 #include "PGCharacter.h"
 #include "Pickup.h"
 #include "PowerChangingPickup.h"
-#include "RobotPowerChangePickupHandler.h"
+#include "RobotPowerChangingPickupHandler.h"
 
 
-bool URobotPowerChangePickupHandler::HandlePickup(AActor* Collector, APickup* Pickup)
+bool URobotPowerChangingPickupHandler::HandlePickup(AActor* Collector, APickup* Pickup)
 {
     if (Collector && Pickup)
     {

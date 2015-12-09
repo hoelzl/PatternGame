@@ -137,6 +137,7 @@ void APGCharacter::CollectPickups()
 		if (TestPickup && !TestPickup->IsPendingKill() && TestPickup->IsActive())
 		{
 			TestPickup->WasCollected(this);
+			HandlePickup(TestPickup);
 		}
 	}
 	if (CollectedPower > 0)

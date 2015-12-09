@@ -70,7 +70,7 @@ void APickup::WasCollected(APGCharacter* Collector)
 {
 	UE_LOG(LogClass, Log, TEXT("You have collected %s"), *GetName());
 
-	PerformPickupAction(Collector);
+	SetActive(false);
 
 	if (ParticleSystemForActivePickupTemplate)
 	{
@@ -98,10 +98,4 @@ void APickup::UpdateTargetLocationOfParticleSystemForActivePickup()
 		FVector SocketLocation = Mesh->GetSocketLocation(TEXT("spine_02"));
 		ParticleSystemForActivePickup->SetBeamTargetPoint(0, SocketLocation, 0);
 	}
-}
-
-
-void APickup::PerformPickupAction(class APGCharacter* Collector)
-{
-	SetActive(false);
 }

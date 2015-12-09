@@ -24,6 +24,4 @@ protected:
 	// The amount of poser the battery gives to the character
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))
 	float Power;
-
-	virtual void PerformPickupAction(class APGCharacter* Collector) override;
 };

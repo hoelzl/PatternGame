@@ -1,6 +1,9 @@
 # Gitignore file taken from
 # https://github.com/samsheff/UE4-Gitignore/
 
+# Unknown purpose, probably to avoid conflicts?
+PG.VC.opendb
+
 # Compiled Object files
 *.slo
 *.lo

@@ -1,6 +1,7 @@
 // Copyright (c) 2015, Matthias Hölzl
 
 #include "PG.h"
+#include "OwenPowerChangingPickupHandler.h"
 #include "OwenCharacter.h"
 
 
@@ -10,6 +11,7 @@ AOwenCharacter::AOwenCharacter()
 {
 	PowerChangeParameter = FName(TEXT("Coat Color"));
 	ConfigureMeshAndAnimation();
+	PickupHandlers.Add(NewObject<UOwenPowerChangingPickupHandler>(this, FName(TEXT("OwenDefaultPickupHandler"))));
 }
 
 void AOwenCharacter::ConfigureMeshAndAnimation()
