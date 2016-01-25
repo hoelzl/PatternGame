@@ -7,7 +7,7 @@
 #include "TwoPickupTypesFactory.generated.h"
 
 /**
- * 
+ * A pickup factory that generates two kinds of pickups in a ratio that can be set by the user.
  */
 UCLASS(AutoExpandCategories = "Spawning")
 class PG_API UTwoPickupTypesFactory : public UPickupFactory

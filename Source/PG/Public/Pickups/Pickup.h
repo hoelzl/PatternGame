@@ -5,6 +5,11 @@
 #include "GameFramework/Actor.h"
 #include "Pickup.generated.h"
 
+/* 
+ * The superclass for all actors that a player can pick up.
+ * Typically they will have a (positive or negative) effect on the actor as
+ * soon as they are picked up.
+ */
 UCLASS(Abstract)
 class PG_API APickup : public AActor
 {

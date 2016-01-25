@@ -7,7 +7,7 @@
 #include "SinglePickupTypeFactory.generated.h"
 
 /**
- * 
+ * A pickup factory that creates a single type of pickup.
  */
 UCLASS(AutoExpandCategories = "Spawning")
 class PG_API USinglePickupTypeFactory : public UPickupFactory

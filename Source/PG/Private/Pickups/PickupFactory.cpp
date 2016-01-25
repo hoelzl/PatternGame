@@ -36,6 +36,3 @@ class APickup* UPickupFactory::SpawnPickupOfType(TSubclassOf<APickup> Type, AAct
 	}
 	return nullptr;
 }
-
-
-

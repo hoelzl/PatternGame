@@ -6,7 +6,7 @@
 #include "EnergyDrainingPickup.generated.h"
 
 /**
- * 
+ * A pickup that drains energy from a character.
  */
 UCLASS()
 class PG_API AEnergyDrainingPickup : public APowerChangingPickup

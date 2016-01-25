@@ -6,7 +6,8 @@
 #include "OwenCharacter.generated.h"
 
 /**
- * 
+ * The "Owen" character from the content examples.
+ * His coat turns bright yellow if he has lots of energy.
  */
 UCLASS()
 class PG_API AOwenCharacter : public APGCharacter

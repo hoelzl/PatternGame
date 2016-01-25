@@ -6,7 +6,9 @@
 #include "OwenPowerChangingPickupHandler.generated.h"
 
 /**
- * 
+ * A handler for power-changing pickups for Owen.
+ * Always applies the pickup power change as health gain, but multiplies
+ * the value with 0.5
  */
 UCLASS()
 class PG_API UOwenPowerChangingPickupHandler : public UPickupHandler

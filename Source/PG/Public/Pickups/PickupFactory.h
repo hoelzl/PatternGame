@@ -7,7 +7,7 @@
 #include "PickupFactory.generated.h"
 
 /**
- * 
+ * A generic factory for pickups.
  */
 UCLASS(Abstract, Blueprintable, EditInlineNew)
 class PG_API UPickupFactory : public UObject

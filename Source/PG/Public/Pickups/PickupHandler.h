@@ -6,7 +6,9 @@
 #include "PickupHandler.generated.h"
 
 /**
- * 
+ * A handler for pickups.
+ * The combination of a character's pickup handlers and the picked-up item determine the effect
+ * the item has on the character.
  */
 UCLASS(Abstract)
 class PG_API UPickupHandler : public UObject

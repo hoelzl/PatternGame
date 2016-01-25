@@ -7,6 +7,12 @@
 #include "Pickups/PickupHandler.h"
 #include "PGCharacter.generated.h"
 
+
+/*
+ * The base class for all playable characters.
+ * Contains a camera, support for handling pickups as well as the functionality for
+ * applying effects when picking up items.
+ */
 UCLASS(Abstract, config=Game)
 class PG_API APGCharacter : public ACharacter
 {

@@ -7,7 +7,7 @@
 #include "SelectionGameMode.generated.h"
 
 /**
- * 
+ * The game mode (i.e., rules) for the initial selection of a player character.
  */
 UCLASS()
 class PG_API ASelectionGameMode : public AGameMode

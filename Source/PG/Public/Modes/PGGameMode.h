@@ -15,6 +15,9 @@ enum class EPGPlayState
 	EUnknown
 };
 
+/*
+ * The game mode (i.e., rules of the game) for the main part of the game.
+ */
 UCLASS()
 class APGGameMode : public AGameMode
 {

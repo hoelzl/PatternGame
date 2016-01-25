@@ -6,9 +6,6 @@
 #include "Pickups/PowerChangingPickup.h"
 #include "OwenPowerChangingPickupHandler.h"
 
-
-
-
 bool UOwenPowerChangingPickupHandler::HandlePickup(AActor* Collector, class APickup* Pickup)
 {
 	if (Collector && Pickup)

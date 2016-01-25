@@ -6,7 +6,7 @@
 #include "PowerChangingPickup.generated.h"
 
 /**
- * 
+ * A pickup that changes a character's power level.
  */
 UCLASS(Abstract)
 class PG_API APowerChangingPickup : public APickup
