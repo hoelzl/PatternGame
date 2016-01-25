@@ -9,7 +9,13 @@ AOwenCharacter::AOwenCharacter()
 {
 	PowerChangeParameter = FName(TEXT("Coat Color"));
 	ConfigureMeshAndAnimation();
-	PickupHandlers.Add(NewObject<UOwenPowerChangingPickupHandler>(this, FName(TEXT("OwenDefaultPickupHandler"))));
+
+	// Ensure that we only create a pickup handler when it is contained in a valid world.
+	UWorld* World{ GetWorld() };
+	if (ensure(World))
+	{
+		PickupHandlers.Add(NewObject<UOwenPowerChangingPickupHandler>(World, FName(TEXT("OwenDefaultPickupHandler"))));
+	}
 }
 
 void AOwenCharacter::ConfigureMeshAndAnimation()

@@ -9,7 +9,13 @@ ARobotCharacter::ARobotCharacter()
 {
 	PowerChangeParameter = FName(TEXT("BodyColor"));
 	ConfigureMeshAndAnimation();
-	PickupHandlers.Add(NewObject<URobotPowerChangingPickupHandler>(this, FName(TEXT("RobotDefaultPickupHandler"))));
+
+	// Ensure that we only create a pickup handler when it is contained in a valid world.
+	UWorld* World{ GetWorld() };
+	if (ensure(World))
+	{
+		PickupHandlers.Add(NewObject<URobotPowerChangingPickupHandler>(World, FName(TEXT("RobotDefaultPickupHandler"))));
+	}
 }
 
 void ARobotCharacter::ConfigureMeshAndAnimation()

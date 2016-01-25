@@ -8,7 +8,7 @@
 #include "PGCharacter.generated.h"
 
 UCLASS(Abstract, config=Game)
-class APGCharacter : public ACharacter
+class PG_API APGCharacter : public ACharacter
 {
 	GENERATED_BODY()
 

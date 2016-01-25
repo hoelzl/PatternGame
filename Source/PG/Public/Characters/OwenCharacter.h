@@ -20,5 +20,4 @@ private:
 
 	/** Provide defaults for the mesh and animations */
 	void ConfigureMeshAndAnimation();
-	
 };
