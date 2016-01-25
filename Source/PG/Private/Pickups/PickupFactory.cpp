@@ -6,7 +6,7 @@
 
 class APickup* UPickupFactory::SpawnPickup(AActor* Owner, APawn* Instigator, FVector SpawnLocation)
 {
-	UE_LOG(LogClass, Warning, TEXT("Trying to use direct instance of UPickupFactory"));
+	UE_LOG(PG, Warning, TEXT("Trying to use direct instance of UPickupFactory"));
 	return nullptr;
 }
 

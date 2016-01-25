@@ -68,7 +68,7 @@ void APickup::SetActive(bool NewPickupState)
 
 void APickup::WasCollected(APGCharacter* Collector)
 {
-	UE_LOG(LogClass, Log, TEXT("You have collected %s"), *GetName());
+	UE_LOG(PG, Log, TEXT("You have collected %s"), *GetName());
 
 	SetActive(false);
 
