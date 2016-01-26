@@ -12,7 +12,7 @@ AOwenCharacter::AOwenCharacter()
 
 	// Ensure that we only create a pickup handler when it is contained in a valid world.
 	UWorld* World{ GetWorld() };
-	if (ensure(World))
+	if (World)
 	{
 		PickupHandlers.Add(NewObject<UOwenPowerChangingPickupHandler>(World, FName(TEXT("OwenDefaultPickupHandler"))));
 	}
