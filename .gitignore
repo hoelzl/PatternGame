@@ -7,6 +7,7 @@
 
 # Unknown purpose, probably to avoid conflicts?
 PG.VC.opendb
+PG.VC.db
 
 # Compiled Object files
 *.slo
@@ -47,6 +48,9 @@ PG.VC.opendb
 *.sdf
 *.sln
 
+# Visual Studio data
+.vs/*
+
 # Precompiled Assets
 SourceArt/**/*.png
 SourceArt/**/*.tga
@@ -68,6 +72,9 @@ Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+# Ignore built data
+*_BuiltData.uasset
 
 # Mac Artifacts
 .DS_Store

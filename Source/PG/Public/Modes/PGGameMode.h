@@ -7,7 +7,7 @@
 
 // Store the current state of gameplay
 UENUM(BlueprintType)
-enum class EPGPlayState
+enum class EPGPlayState : uint8
 {
 	EPlaying,
 	EGameOver,
