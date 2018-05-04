@@ -10,7 +10,7 @@
  * The combination of a character's pickup handlers and the picked-up item determine the effect
  * the item has on the character.
  */
-UCLASS(Abstract)
+UCLASS()
 class PG_API UPickupHandler : public UObject
 {
 	GENERATED_BODY()

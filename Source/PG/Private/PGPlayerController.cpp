@@ -10,11 +10,11 @@ APGPlayerController::APGPlayerController()
 {
 }
 
-void APGPlayerController::Possess(APawn* Pawn)
+void APGPlayerController::Possess(APawn* InPawn)
 {
-	Super::Possess(Pawn);
-	check(Pawn);
-	PGCharacter = Cast<APGCharacter>(Pawn);
+	Super::Possess(InPawn);
+	check(InPawn);
+	PGCharacter = Cast<APGCharacter>(InPawn);
 }
 
 void APGPlayerController::SetupInputComponent()

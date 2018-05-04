@@ -5,21 +5,10 @@ using System.Collections.Generic;
 
 public class PGTarget : TargetRules
 {
-	public PGTarget(TargetInfo Target)
+	public PGTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Game;
-	}
-
-	//
-	// TargetRules interface.
-	//
-
-	public override void SetupBinaries(
-		TargetInfo Target,
-		ref List<UEBuildBinaryConfiguration> OutBuildBinaryConfigurations,
-		ref List<string> OutExtraModuleNames
-		)
-	{
-		OutExtraModuleNames.Add("PG");
-	}
+        ExtraModuleNames.Add("PG");
+        // LaunchModuleName = "PG";
+    }
 }

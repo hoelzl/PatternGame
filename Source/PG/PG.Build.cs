@@ -6,7 +6,7 @@ using UnrealBuildTool;
 
 public class PG : ModuleRules
 {
-	public PG(TargetInfo Target)
+	public PG(ReadOnlyTargetRules rules) : base(rules)
 	{
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "UMG" });
 
