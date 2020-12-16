@@ -9,18 +9,16 @@ ARobotCharacter::ARobotCharacter()
 {
 	PowerChangeParameter = FName(TEXT("BodyColor"));
 	ConfigureMeshAndAnimation();
-
-	// Ensure that we only create a pickup handler when it is contained in a valid world.
-	UWorld* World{ GetWorld() };
-	if (World)
-	{
-		PickupHandlers.Add(NewObject<URobotPowerChangingPickupHandler>(World, FName(TEXT("RobotDefaultPickupHandler"))));
-	}
 }
 
 void ARobotCharacter::ConfigureMeshAndAnimation()
 {
-	// Configure the skeletal mesh and animation blueprints
+	ConfigureMesh();
+	ConfigureAnimationBlueprint();
+}
+
+void ARobotCharacter::ConfigureMesh()
+{
 	static auto SkeletalMeshName = TEXT("SkeletalMesh'/Game/Characters/Mannequin/Mesh/SK_Mannequin.SK_Mannequin'");
 	static auto SkeletalMeshFinder = ConstructorHelpers::FObjectFinder<USkeletalMesh>(SkeletalMeshName);
 	if (SkeletalMeshFinder.Succeeded())
@@ -33,11 +31,26 @@ void ARobotCharacter::ConfigureMeshAndAnimation()
 		ConfigureMeshCollision();
 
 	}
+}
 
+void ARobotCharacter::ConfigureAnimationBlueprint() const
+{
 	static auto AnimBlueprintName = TEXT("AnimBlueprint'/Game/Characters/Mannequin/Animations/ThirdPerson_AnimBP.ThirdPerson_AnimBP_C'");
 	static auto AnimBlueprintFinder = ConstructorHelpers::FObjectFinder<UAnimBlueprintGeneratedClass>(AnimBlueprintName);
 	if (AnimBlueprintFinder.Succeeded())
 	{
 		GetMesh()->SetAnimInstanceClass(AnimBlueprintFinder.Object);
+	}
+}
+
+void ARobotCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	
+	// Ensure that we only create a pickup handler when it is contained in a valid world.
+	UWorld* World{ GetWorld() };
+	if (World)
+	{
+		PickupHandlers.Add(NewObject<URobotPowerChangingPickupHandler>(World, FName(TEXT("RobotDefaultPickupHandler"))));
 	}
 }

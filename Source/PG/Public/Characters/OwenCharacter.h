@@ -12,13 +12,15 @@
 UCLASS()
 class PG_API AOwenCharacter : public APGCharacter
 {
+private:
 	GENERATED_BODY()
 	
 public:
 	AOwenCharacter();
+	virtual void BeginPlay() override;
 
 private:
-
-	/** Provide defaults for the mesh and animations */
 	void ConfigureMeshAndAnimation();
+	void ConfigureMesh();
+	void ConfigureAnimationBlueprint() const;
 };

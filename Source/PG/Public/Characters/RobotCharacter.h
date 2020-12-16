@@ -16,10 +16,12 @@ class PG_API ARobotCharacter : public APGCharacter
 	
 public:
 	ARobotCharacter();
-	
+	virtual void BeginPlay() override;
+
 private:
 
 	/** Provide defaults for the mesh and animations */
 	void ConfigureMeshAndAnimation();
-
+	void ConfigureMesh();
+	void ConfigureAnimationBlueprint() const;
 };
