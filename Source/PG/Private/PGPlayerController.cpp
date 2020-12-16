@@ -10,9 +10,9 @@ APGPlayerController::APGPlayerController()
 {
 }
 
-void APGPlayerController::Possess(APawn* InPawn)
+void APGPlayerController::OnPossess(APawn* InPawn)
 {
-	Super::Possess(InPawn);
+	Super::OnPossess(InPawn);
 	check(InPawn);
 	PGCharacter = Cast<APGCharacter>(InPawn);
 }

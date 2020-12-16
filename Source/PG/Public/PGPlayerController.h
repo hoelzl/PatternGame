@@ -20,7 +20,7 @@ protected:
 	UPROPERTY()
 	class APGCharacter* PGCharacter;
 
-	virtual void Possess(APawn* Pawn) override;
+	virtual void OnPossess(APawn* Pawn) override;
 	virtual void SetupInputComponent() override;
 
 	void Jump();

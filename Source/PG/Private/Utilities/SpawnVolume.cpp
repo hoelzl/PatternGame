@@ -59,7 +59,7 @@ void ASpawnVolume::SpawnPickup()
 {
 	if (PickupFactory)
 	{
-		PickupFactory->SpawnPickup(this, Instigator, GetRandomPointInVolume());
+		PickupFactory->SpawnPickup(this, GetInstigator(), GetRandomPointInVolume());
 		UpdateSpawnTimer();
 	}
 }

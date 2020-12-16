@@ -5,6 +5,9 @@
 *~
 .#*
 
+# Rider project files
+.idea
+
 # Unknown purpose, probably to avoid conflicts?
 PG.VC.opendb
 PG.VC.db
