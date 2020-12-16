@@ -27,7 +27,7 @@ public:
 
 	// Return whether or not the Pickup is active
 	UFUNCTION(BlueprintPure, Category = "Pickup")
-	bool IsActive();
+	bool IsActive() const;
 
 	// Allows other classes to safely change whether or not the pickup is active
 	UFUNCTION(BlueprintCallable, Category = "Pickup")

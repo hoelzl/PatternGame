@@ -8,6 +8,10 @@
 # Rider project files
 .idea
 
+# Rider Plugin generated files
+Plugins/Developer/RiderLink/Intermediate/
+Plugins/Developer/RiderLink/Binaries/
+
 # Unknown purpose, probably to avoid conflicts?
 PG.VC.opendb
 PG.VC.db

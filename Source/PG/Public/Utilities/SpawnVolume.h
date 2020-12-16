@@ -23,7 +23,7 @@ public:
 
 	// Find a random point within the BoxComponent
 	UFUNCTION(BlueprintPure, Category = "Spawning")
-	FVector GetRandomPointInVolume();
+	FVector GetRandomPointInVolume() const;
 
 	// This function toggles whether or not the spawn volume spawns pickups
 	UFUNCTION(BlueprintCallable, Category = "Spawning")

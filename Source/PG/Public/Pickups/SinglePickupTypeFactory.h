@@ -19,6 +19,6 @@ public:
 
 	UPROPERTY(EditAnywhere, NoClear, Category = "Spawning")
 	TSubclassOf<APickup> CreatedType;
-	
-	APickup* SpawnPickup(AActor* Owner, APawn* Instigator, FVector Location) override;
+
+	virtual APickup* SpawnPickup(AActor* Owner, APawn* Instigator, FVector Location) override;
 };

@@ -35,10 +35,10 @@ void ASpawnVolume::BeginPlay()
 	}
 }
 
-FVector ASpawnVolume::GetRandomPointInVolume()
+FVector ASpawnVolume::GetRandomPointInVolume() const
 {
-	FVector SpawnOrigin{ WhereToSpawn->Bounds.Origin };
-	FVector SpawnExtent{ WhereToSpawn->Bounds.BoxExtent };
+	const FVector SpawnOrigin{ WhereToSpawn->Bounds.Origin };
+	const FVector SpawnExtent{ WhereToSpawn->Bounds.BoxExtent };
 
 	return UKismetMathLibrary::RandomPointInBoundingBox( SpawnOrigin, SpawnExtent );
 }

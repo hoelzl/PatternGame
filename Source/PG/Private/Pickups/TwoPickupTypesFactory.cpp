@@ -16,7 +16,7 @@ UTwoPickupTypesFactory::UTwoPickupTypesFactory() :
 
 class APickup* UTwoPickupTypesFactory::SpawnPickup(AActor* Owner, APawn* Instigator, FVector Location)
 {
-	float Rand = FMath::FRand();
-	TSubclassOf<APickup> CreatedType = (Rand <= Type1Probability) ? CreatedType1 : CreatedType2;
+	const float RandomUnitValue{FMath::FRand()};
+	const TSubclassOf<APickup> CreatedType{(RandomUnitValue <= Type1Probability) ? CreatedType1 : CreatedType2};
 	return SpawnPickupOfType(CreatedType, Owner, Instigator, Location);
 }

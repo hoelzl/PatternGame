@@ -20,5 +20,5 @@ public:
 protected:
 	UPickupFactory();
 
-	APickup* SpawnPickupOfType(TSubclassOf<APickup> Type, AActor* Owner, APawn* Instigator, FVector SpawnLocation);
+	static APickup* SpawnPickupOfType(TSubclassOf<APickup> Type, AActor* Owner, APawn* Instigator, FVector SpawnLocation);
 };

@@ -27,5 +27,5 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, NoClear, Category = "Spawning")
 	TSubclassOf<APickup> CreatedType2;
 
-	class APickup* SpawnPickup(AActor* Owner, APawn* Instigator, FVector Location) override;
+	virtual class APickup* SpawnPickup(AActor* Owner, APawn* Instigator, FVector Location) override;
 };
