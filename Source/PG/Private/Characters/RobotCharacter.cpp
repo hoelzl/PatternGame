@@ -27,9 +27,7 @@ void ARobotCharacter::ConfigureMesh()
 		MeshComponent->SetSkeletalMesh(SkeletalMeshFinder.Object);
 		MeshComponent->SetRelativeLocation(FVector(0.f, 0.f, -95.f));
 		MeshComponent->SetRelativeRotation(FRotator(0.f, 270.f, 0.f));
-
 		ConfigureMeshCollision();
-
 	}
 }
 

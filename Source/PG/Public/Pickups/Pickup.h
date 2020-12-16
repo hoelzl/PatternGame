@@ -3,6 +3,7 @@
 #pragma once
 
 #include "GameFramework/Actor.h"
+#include "PickupCollector.h"
 #include "Pickup.generated.h"
 
 /* 
@@ -35,7 +36,7 @@ public:
 
 	// Function to call when the pickup is collected
 	UFUNCTION(BlueprintCallable, Category = "Pickup")
-	virtual void WasCollected(class APGCharacter* Collector);
+	virtual void WasCollected(TScriptInterface<IPickupCollector> InCollector);
 
 protected:
 	// Sets default values for this actor's properties
@@ -44,11 +45,14 @@ protected:
     // True when the pickup can be used, false when the pickup is deactivated
     bool bIsActive;
 
+	UPROPERTY()
+	TScriptInterface<IPickupCollector> Collector{};
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))
 	float TimeUntilDestruction;
 
-	// Destroy all timers and then this actor
-	virtual void DestroyPickup();
+	// Destroy all timers and then apply the pickup effects and destroy this actor
+	virtual void ApplyAndDestroyPickup();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))
 	UParticleSystem* ParticleSystemForActivePickupTemplate;

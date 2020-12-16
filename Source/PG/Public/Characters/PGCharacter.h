@@ -3,6 +3,7 @@
 
 
 #pragma once
+#include "PickupCollector.h"
 #include "GameFramework/Character.h"
 #include "Pickups/PickupHandler.h"
 #include "PGCharacter.generated.h"
@@ -14,12 +15,21 @@
  * applying effects when picking up items.
  */
 UCLASS(Abstract, config=Game)
-class PG_API APGCharacter : public ACharacter
+class PG_API APGCharacter : public ACharacter, public IPickupCollector
 {
 	GENERATED_BODY()
 
 protected:
 	APGCharacter();
+
+	void ConfigureControllerRotation();
+	void ConfigureCharacterMovement();
+	void ConfigureCameraBoom();
+	void ConfigureFollowCamera();
+	void ConfigureCollectionSphere();
+
+	virtual void ConfigureMeshCollision();
+
 
 	// Perform the work that has to be done after initializing the components, e.g., setting the PowerMaterial.
 	virtual void PostInitializeComponents() override;
@@ -38,16 +48,7 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Pickup, meta = (AllowPrivateAccess = "true"))
 	class USphereComponent* CollectionSphere;
 
-protected:
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Pickup)
-    TArray<UPickupHandler*> PickupHandlers;
-    
 public:
-    UFUNCTION(BlueprintCallable, Category = Pickup)
-    virtual void HandlePickup(class APickup* Pickup);
-    
-public:
-
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseTurnRate;
@@ -71,9 +72,12 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Power")
 	void UpdatePower(float PowerChange);
 
-protected:
+public:
+	virtual void HandlePickup(class APickup* Pickup);
 
-	void ConfigureMeshCollision();
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Pickup)
+	TArray<UPickupHandler*> PickupHandlers;
 
 public:
 
@@ -109,13 +113,13 @@ public:
 
 protected:
 
-    /** Multiplier for character speed */
+	/** Multiplier for character speed */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))
 	float SpeedFactor;
 
 	/** Speed when baseline power = 0 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))
-    float BaseSpeed;
+	float BaseSpeed;
 
 	/** Maximum speed the character can achieve */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))
@@ -131,9 +135,9 @@ protected:
 	FName PowerChangeParameter;
 
 	/** The starting power level of our character */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))
-    float InitialPower;
-    
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))
+	float InitialPower;
+
 	/** Apply the visual effect */
 	UFUNCTION(BlueprintCallable, Category = "Power", Meta = (BlueprintProtected = "true"))
 	virtual void PowerChangeEffect();
@@ -143,7 +147,7 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Power")
 	float CurrentPower;
 
-	UMaterialInstanceDynamic* CreateAndApplyPowerMaterial();
+	void CreateAndApplyPowerMaterial();
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Power", Meta = (AllowPrivateAccess = "true"))
 	UMaterialInstanceDynamic* PowerMaterial;
@@ -156,4 +160,3 @@ public:
 	/** Returns CollectionSphere subobject */
 	FORCEINLINE class USphereComponent* GetCollectionSphere() const { return CollectionSphere; }
 };
-

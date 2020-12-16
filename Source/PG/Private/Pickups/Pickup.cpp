@@ -3,6 +3,7 @@
 #include "PG.h"
 #include "Pickup.h"
 #include "ConstructorHelpers.h"
+#include "PickupCollector.h"
 
 
 // Sets default values
@@ -35,7 +36,7 @@ APickup::APickup()
 }
 
 
-void APickup::DestroyPickup()
+void APickup::ApplyAndDestroyPickup()
 {
 	AActor::GetWorldTimerManager().ClearAllTimersForObject(this);
 
@@ -44,6 +45,11 @@ void APickup::DestroyPickup()
 		ParticleSystemForDestroyedPickup = UGameplayStatics::SpawnEmitterAtLocation(
 			this, ParticleSystemForDestroyedPickupTemplate, GetMeshComponent()->GetComponentLocation(),
 			FRotator::ZeroRotator, true);
+	}
+
+	if (Collector)
+	{
+		Collector->HandlePickup(this);
 	}
 
 	Destroy();
@@ -71,11 +77,12 @@ void APickup::SetActive(bool NewPickupState)
 	bIsActive = NewPickupState;
 }
 
-void APickup::WasCollected(APGCharacter* Collector)
+void APickup::WasCollected(TScriptInterface<IPickupCollector> InCollector)
 {
 	UE_LOG(PG, Log, TEXT("You have collected %s"), *GetName());
 
 	SetActive(false);
+	Collector = InCollector;
 
 	if (ParticleSystemForActivePickupTemplate)
 	{
@@ -88,13 +95,15 @@ void APickup::WasCollected(APGCharacter* Collector)
 	FTimerManager& TimerManager = AActor::GetWorldTimerManager();
 
 	FTimerHandle DestructionTimer;
-	const auto DestructionDelegate = FTimerDelegate::CreateUObject(this, &APickup::DestroyPickup);
+	const auto DestructionDelegate = FTimerDelegate::CreateUObject(this, &APickup::ApplyAndDestroyPickup);
 	TimerManager.SetTimer(DestructionTimer, DestructionDelegate, TimeUntilDestruction, false);
 
 	FTimerHandle UpdateTimer;
 	const auto UpdateTargetLocationDelegate = FTimerDelegate::CreateUObject(
 		this, &APickup::UpdateTargetLocationOfParticleSystemForActivePickup);
 	TimerManager.SetTimer(UpdateTimer, UpdateTargetLocationDelegate, TimeBetweenTargetLocationUpdates, true);
+
+	InCollector->HandlePickup(this);
 }
 
 void APickup::UpdateTargetLocationOfParticleSystemForActivePickup()
