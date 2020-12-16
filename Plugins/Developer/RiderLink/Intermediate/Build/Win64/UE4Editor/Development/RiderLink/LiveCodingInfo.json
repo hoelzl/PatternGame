@@ -1,0 +1,34 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.RiderLink.cpp.obj": [
+			"ProtocolFactory.cpp.obj",
+			"RdConnection.cpp.obj",
+			"RiderLink.cpp.obj",
+			"UE4TypesMarshallers.cpp.obj",
+			"instantiationsLibrary.cpp.obj",
+			"BlueprintFunction.Generated.cpp.obj",
+			"BlueprintHighlighter.Generated.cpp.obj",
+			"BlueprintReference.Generated.cpp.obj",
+			"EmptyScriptCallStack.Generated.cpp.obj",
+			"IScriptCallStack.Generated.cpp.obj",
+			"IScriptCallStack_Unknown.Generated.cpp.obj",
+			"IScriptMsg.Generated.cpp.obj",
+			"IScriptMsg_Unknown.Generated.cpp.obj",
+			"LogMessageInfo.Generated.cpp.obj",
+			"PlayState.Generated.cpp.obj",
+			"ScriptCallStack.Generated.cpp.obj",
+			"ScriptCallStackFrame.Generated.cpp.obj",
+			"ScriptMsgCallStack.Generated.cpp.obj",
+			"ScriptMsgException.Generated.cpp.obj",
+			"StringRange.Generated.cpp.obj",
+			"UClass.Generated.cpp.obj",
+			"UE4Library.Generated.cpp.obj",
+			"UnableToDisplayScriptCallStack.Generated.cpp.obj",
+			"UnrealLogEvent.Generated.cpp.obj",
+			"instantiationsRdEditorProtocol.cpp.obj",
+			"RdEditorModel.Generated.cpp.obj",
+			"RdEditorRoot.Generated.cpp.obj"
+		]
+	}
+}

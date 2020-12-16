@@ -9,7 +9,7 @@ public class PG : ModuleRules
 	public PG(ReadOnlyTargetRules rules) : base(rules)
 	{
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "UMG" });
-
-        PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
+		PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
+		PrivatePCHHeaderFile = "Public/PG.h";
 	}
 }

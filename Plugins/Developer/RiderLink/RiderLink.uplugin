@@ -1,0 +1,60 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "2020.3.116",
+  "FriendlyName": "RiderLink",
+  "Description": "Plugin for establishing IPC connection with JetBrains Rider IDE",
+  "Category": "Programming",
+  "CreatedBy": "JetBrains",
+  "CreatedByURL": "https://www.jetbrains.com/",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "SupportURL": "",
+  "EngineVersion": "4.26.0",
+  "CanContainContent": false,
+  "IsBetaVersion": true,
+  "Installed": false,
+  "Modules": [
+    {
+      "Name": "RD",
+      "Type": "EditorNoCommandlet",
+      "LoadingPhase": "PreDefault",
+      "WhitelistPlatforms": [
+        "Win64"
+      ]
+    },
+    {
+      "Name": "RiderLink",
+      "Type": "EditorNoCommandlet",
+      "LoadingPhase": "PreDefault",
+      "WhitelistPlatforms": [
+        "Win64"
+      ]
+    },
+    {
+      "Name": "RiderLoggingExtension",
+      "Type": "EditorNoCommandlet",
+      "LoadingPhase": "PreDefault",
+      "WhitelistPlatforms": [
+        "Win64"
+      ]
+    },
+    {
+      "Name": "RiderBlueprintExtension",
+      "Type": "EditorNoCommandlet",
+      "LoadingPhase": "Default",
+      "WhitelistPlatforms": [
+        "Win64"
+      ]
+    },
+    {
+      "Name": "RiderGameControlExtension",
+      "Type": "EditorNoCommandlet",
+      "LoadingPhase": "Default",
+      "WhitelistPlatforms": [
+        "Win64"
+      ]
+    }
+  ],
+  "EnabledByDefault": true
+}
