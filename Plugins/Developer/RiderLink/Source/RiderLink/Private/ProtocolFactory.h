@@ -1,20 +1,12 @@
 ﻿#pragma once
 
-#if PLATFORM_WINDOWS
-// ReSharper disable once CppUnusedIncludeDirective
-#include "Windows/AllowWindowsPlatformTypes.h"
-#include "Windows/PreWindowsApi.h"
-
-#include "protocol/Protocol.h"
-
-#include "Windows/PostWindowsApi.h"
-// ReSharper disable once CppUnusedIncludeDirective
-#include "Windows/HideWindowsPlatformTypes.h"
-#endif
+#include <protocol/Protocol.h>
+#include "wire/SocketWire.h"
 
 #include "Templates/UniquePtr.h"
 
-class ProtocolFactory {
-public:
-    static TUniquePtr<rd::Protocol> Create(rd::IScheduler * Scheduler, rd::Lifetime SocketLifetime);
+namespace ProtocolFactory {
+    void InitRdLogging();
+    std::shared_ptr<rd::SocketWire::Server> CreateWire(rd::IScheduler* Scheduler, rd::Lifetime SocketLifetime);
+    TUniquePtr<rd::Protocol> CreateProtocol(rd::IScheduler* Scheduler, rd::Lifetime SocketLifetime, std::shared_ptr<rd::SocketWire::Server> wire);
 };

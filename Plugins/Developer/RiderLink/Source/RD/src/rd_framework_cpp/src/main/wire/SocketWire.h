@@ -1,7 +1,7 @@
 #ifndef RD_CPP_SOCKETWIRE_H
 #define RD_CPP_SOCKETWIRE_H
 
-#if _MSC_VER
+#if defined(_MSC_VER)
 #pragma warning(push)
 #pragma warning(disable:4251)
 #endif
@@ -11,15 +11,15 @@
 #include "ByteBufferAsyncProcessor.h"
 #include "PkgInputStream.h"
 
-#include "SimpleSocket.h"
-#include "ActiveSocket.h"
-#include "PassiveSocket.h"
-
 #include <string>
 #include <array>
 #include <condition_variable>
 
 #include <rd_framework_export.h>
+
+class CSimpleSocket;
+class CActiveSocket;
+class CPassiveSocket;
 
 namespace rd
 {
@@ -35,11 +35,11 @@ public:
 
 		std::timed_mutex lock;
 		mutable std::mutex socket_send_lock;
+		mutable std::mutex wire_send_lock;
 
 		std::thread thread{};
 
 		std::string id;
-		Lifetime lifetime;
 		IScheduler* scheduler = nullptr;
 		std::shared_ptr<CSimpleSocket> socket_provider;
 
@@ -52,9 +52,6 @@ public:
 		static constexpr size_t RECEIVE_BUFFER_SIZE = 1u << 16;
 		mutable std::array<Buffer::word_t, RECEIVE_BUFFER_SIZE> receiver_buffer{};
 		mutable decltype(receiver_buffer)::iterator lo = receiver_buffer.begin(), hi = receiver_buffer.begin();
-
-		static constexpr size_t SEND_BUFFER_SIZE = 16 * 1024;
-		mutable Buffer local_send_buffer;
 
 		static constexpr int32_t ACK_MESSAGE_LENGTH = -1;
 		static constexpr int32_t PING_MESSAGE_LENGTH = -2;
@@ -101,6 +98,10 @@ public:
 			return read_from_socket(reinterpret_cast<Buffer::word_t*>(data), static_cast<int32_t>(len));
 		}
 
+		void set_socket_provider(std::shared_ptr<CActiveSocket> new_socket);
+
+		CSimpleSocket* get_socket_provider() const;
+
 	public:
 		static constexpr int32_t MaximumHeartbeatDelay = 3;
 		std::chrono::milliseconds heartBeatInterval = std::chrono::milliseconds(500);
@@ -109,7 +110,7 @@ public:
 
 		Base(std::string id, Lifetime lifetime, IScheduler* scheduler);
 
-		virtual ~Base() = default;
+		virtual ~Base() override;
 
 		// endregion
 
@@ -125,17 +126,18 @@ public:
 
 		void send(RdId const& rd_id, std::function<void(Buffer& buffer)> writer) const override;
 
-		void set_socket_provider(std::shared_ptr<CActiveSocket> new_socket);
-
 		static bool connection_established(int32_t timestamp, int32_t acknowledged_timestamp);
 
 		std::future<void> start_heartbeat(Lifetime lifetime);
 
-		CSimpleSocket* get_socket_provider() const;
-
 		void ping() const;
 
 		bool send_ack(sequence_number_t seqn) const;
+
+		bool try_shutdown_connection() const;
+		
+	private:		
+		LifetimeDefinition lifetimeDef;
 	};
 
 	class RD_FRAMEWORK_API Client : public Base
@@ -145,12 +147,14 @@ public:
 
 		// region ctor/dtor
 
-		Client(Lifetime lifetime, IScheduler* scheduler, uint16_t port = 0, const std::string& id = "ClientSocket");
+		Client(Lifetime parentLifetime, IScheduler* scheduler, uint16_t port = 0, const std::string& id = "ClientSocket");
 
-		virtual ~Client() = default;
+		virtual ~Client() override;
 		// endregion
 
 		std::condition_variable_any cv;
+	private:		
+		LifetimeDefinition clientLifetimeDefinition;
 	};
 
 	class RD_FRAMEWORK_API Server : public Base
@@ -158,18 +162,20 @@ public:
 	public:
 		uint16_t port = 0;
 
-		std::unique_ptr<CPassiveSocket> ss = std::make_unique<CPassiveSocket>();
+		std::unique_ptr<CPassiveSocket> ss;
 
 		// region ctor/dtor
 
 		Server(Lifetime lifetime, IScheduler* scheduler, uint16_t port = 0, const std::string& id = "ServerSocket");
 
-		virtual ~Server() = default;
+		virtual ~Server() override;
 		// endregion
+	private:
+		LifetimeDefinition serverLifetimeDefinition;
 	};
 };
 }	 // namespace rd
-#if _MSC_VER
+#if defined(_MSC_VER)
 #pragma warning(pop)
 #endif
 

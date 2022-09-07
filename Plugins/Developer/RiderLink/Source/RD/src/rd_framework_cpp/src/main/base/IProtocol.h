@@ -1,7 +1,7 @@
 #ifndef RD_CPP_IPROTOCOL_H
 #define RD_CPP_IPROTOCOL_H
 
-#if _MSC_VER
+#if defined(_MSC_VER)
 #pragma warning(push)
 #pragma warning(disable:4251)
 #endif
@@ -34,6 +34,8 @@ public:
 	std::unique_ptr<Serializers> serializers = std::make_unique<Serializers>();
 
 protected:
+	mutable RName location;
+
 	std::shared_ptr<Identities> identity;
 	IScheduler* scheduler = nullptr;
 
@@ -61,9 +63,11 @@ public:
 	const IWire* get_wire() const;
 
 	const Serializers& get_serializers() const;
+
+	const RName& get_location() const override;
 };
 }	 // namespace rd
-#if _MSC_VER
+#if defined(_MSC_VER)
 #pragma warning(pop)
 #endif
 

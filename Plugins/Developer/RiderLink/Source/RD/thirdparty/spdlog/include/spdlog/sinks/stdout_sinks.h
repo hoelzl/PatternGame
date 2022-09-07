@@ -3,7 +3,7 @@
 
 #pragma once
 
-#if _MSC_VER
+#if defined(_MSC_VER)
 #pragma warning(push)
 #pragma warning(disable:4251)
 #endif
@@ -12,6 +12,10 @@
 #include <spdlog/details/synchronous_factory.h>
 #include <spdlog/sinks/sink.h>
 #include <cstdio>
+
+#ifdef _WIN32
+#    include <spdlog/details/windows_include.h>
+#endif
 
 namespace spdlog {
 
@@ -41,6 +45,9 @@ protected:
     mutex_t &mutex_;
     FILE *file_;
     std::unique_ptr<spdlog::formatter> formatter_;
+#ifdef _WIN32
+    HANDLE handle_;
+#endif // WIN32
 };
 
 template<typename ConsoleMutex>
@@ -81,9 +88,9 @@ std::shared_ptr<logger> stderr_logger_st(const std::string &logger_name);
 } // namespace spdlog
 
 #ifdef SPDLOG_HEADER_ONLY
-#include "stdout_sinks-inl.h"
+#    include "stdout_sinks-inl.h"
 #endif
 
-#if _MSC_VER
+#if defined(_MSC_VER)
 #pragma warning(pop)
 #endif

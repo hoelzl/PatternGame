@@ -9,7 +9,7 @@
 // implementers..
 //
 
-#if _MSC_VER
+#if defined(_MSC_VER)
 #pragma warning(push)
 #pragma warning(disable:4251)
 #endif
@@ -21,7 +21,7 @@
 namespace spdlog {
 namespace sinks {
 template<typename Mutex>
-class base_sink : public sink
+class SPDLOG_API base_sink : public sink
 {
 public:
     base_sink();
@@ -53,9 +53,9 @@ protected:
 } // namespace spdlog
 
 #ifdef SPDLOG_HEADER_ONLY
-#include "base_sink-inl.h"
+#    include "base_sink-inl.h"
 #endif
 
-#if _MSC_VER
+#if defined(_MSC_VER)
 #pragma warning(pop)
 #endif

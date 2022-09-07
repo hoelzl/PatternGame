@@ -11,9 +11,8 @@ Buffer::Buffer() : Buffer(16)
 {
 }
 
-Buffer::Buffer(size_t initialSize)
+Buffer::Buffer(size_t initialSize) : data_(initialSize)
 {
-	data_.resize(initialSize);
 }
 
 Buffer::Buffer(ByteArray array, size_t offset) : data_(std::move(array)), offset(offset)
@@ -174,6 +173,22 @@ void Buffer::write_wstring(std::wstring const& value)
 	write_wstring(wstring_view(value));
 }
 
+void Buffer::write_char16_string(const uint16_t* data, size_t len)
+{
+	write_integral<int32_t>(static_cast<int32_t>(len));
+	write(reinterpret_cast<word_t const*>(data), sizeof(uint16_t) * len);
+}
+
+uint16_t* Buffer::read_char16_string()
+{	
+	const int32_t len = read_integral<int32_t>();
+	RD_ASSERT_MSG(len >= 0, "read null string(length =" + std::to_string(len) + ")");
+	uint16_t * result = new uint16_t[len+1];
+	read(reinterpret_cast<Buffer::word_t*>(&result[0]), sizeof(uint16_t) * len);
+	result[len] = 0;
+	return result;
+}
+
 void Buffer::write_wstring(wstring_view value)
 {
 	write_wstring_spec<sizeof(wchar_t)>(*this, value);
@@ -190,7 +205,7 @@ int64_t TICKS_PER_MILLISECOND = 10000000;
 DateTime Buffer::read_date_time()
 {
 	int64_t time_in_ticks = read_integral<int64_t>();
-	time_t t = static_cast<time_t>((time_in_ticks - TICKS_AT_EPOCH) / TICKS_PER_MILLISECOND);
+	time_t t = static_cast<time_t>(time_in_ticks / TICKS_PER_MILLISECOND - TICKS_AT_EPOCH / TICKS_PER_MILLISECOND);
 	return DateTime{t};
 }
 

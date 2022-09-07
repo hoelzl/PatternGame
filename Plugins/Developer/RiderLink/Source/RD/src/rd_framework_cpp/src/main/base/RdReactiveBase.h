@@ -9,8 +9,10 @@
 
 #include <rd_framework_export.h>
 
+#if defined(_MSC_VER)
 #pragma warning(push)
 #pragma warning(disable : 4250)
+#endif
 
 namespace rd
 {
@@ -54,7 +56,7 @@ public:
 	void assert_bound() const;
 
 	template <typename F>
-	auto local_change(F&& action) const -> typename std::result_of_t<F()>
+	auto local_change(F&& action) const -> typename util::result_of_t<F()>
 	{
 		if (is_bound() && !async)
 		{
@@ -69,6 +71,8 @@ public:
 };
 }	 // namespace rd
 
+#if defined(_MSC_VER)
 #pragma warning(pop)
+#endif
 
 #endif	  // RD_CPP_RDREACTIVEBASE_H

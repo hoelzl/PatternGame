@@ -21,7 +21,8 @@ public:
 	using Event = typename IViewableList<T>::Event;
 
 private:
-	using WA = typename A::template rebind<Wrapper<T>>::other;
+	using WA = typename std::allocator_traits<A>::template rebind_alloc<Wrapper<T>>;
+
 	using data_t = std::vector<Wrapper<T>, WA>;
 	mutable data_t list;
 	Signal<Event> change;
@@ -296,7 +297,7 @@ public:
 
 	bool removeAll(std::vector<WT> elements) const override
 	{
-		// todo faster
+		// TO-DO faster
 		//        std::unordered_set<T> set(elements.begin(), elements.end());
 
 		bool res = false;

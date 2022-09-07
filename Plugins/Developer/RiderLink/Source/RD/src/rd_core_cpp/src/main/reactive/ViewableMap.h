@@ -27,8 +27,7 @@ private:
 	using WK = typename IViewableMap<K, V>::WK;
 	using WV = typename IViewableMap<K, V>::WV;
 	using OV = typename IViewableMap<K, V>::OV;
-
-	using PA = typename VA::template rebind<std::pair<Wrapper<K>, Wrapper<V>>>::other;
+	using PA = typename std::allocator_traits<VA>::template rebind_alloc<std::pair<Wrapper<K>, Wrapper<V>>>;
 
 	Signal<Event> change;
 
@@ -282,7 +281,7 @@ public:
 			auto const& value_ptr = it->second;
 
 			if (*value_ptr != wrapper::get<V>(value))
-			{	 // todo more effective
+			{	 // TO-DO more effective
 				Wrapper<V> old_value = std::move(map.at(key));
 
 				map.at(key_ptr) = Wrapper<V>(std::move(value));

@@ -6,8 +6,7 @@
 /NAME:"UE4Editor-RiderLink.dll"
 /IGNORE:4221
 /NODEFAULTLIB
-"C:\Users\tc\Courses\CodingAkademie\Additional-C++\PatternGame\Intermediate\Build\Win64\PGEditor\Development\Core\SharedPCH.Core.RTTI.h.obj"
-"C:\Users\tc\Courses\CodingAkademie\Additional-C++\PatternGame\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UE4Editor\Development\RiderLink\Module.RiderLink.cpp.obj"
-"C:\Users\tc\Courses\CodingAkademie\Additional-C++\PatternGame\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UE4Editor\Development\RiderLink\Default.rc2.res"
-/OUT:"C:\Users\tc\Courses\CodingAkademie\Additional-C++\PatternGame\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UE4Editor\Development\RiderLink\UE4Editor-RiderLink.lib"
+"G:\Unreal\Projects\Courses\PatternGame\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UE4Editor\Development\RiderLink\Module.RiderLink.cpp.obj"
+"G:\Unreal\Projects\Courses\PatternGame\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UE4Editor\Development\RiderLink\Default.rc2.res"
+/OUT:"G:\Unreal\Projects\Courses\PatternGame\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UE4Editor\Development\RiderLink\UE4Editor-RiderLink.lib"
 /INCLUDE:IMPLEMENT_MODULE_RiderLink

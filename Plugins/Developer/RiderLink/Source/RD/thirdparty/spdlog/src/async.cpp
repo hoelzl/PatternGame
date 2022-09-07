@@ -2,10 +2,10 @@
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #ifndef SPDLOG_COMPILED_LIB
-#error Please define SPDLOG_COMPILED_LIB to compile this file.
+#    error Please define SPDLOG_COMPILED_LIB to compile this file.
 #endif
 
-#if _MSC_VER
+#if defined(_MSC_VER)
 #pragma warning(push)
 #pragma warning(disable:4251)
 #endif
@@ -15,8 +15,6 @@
 #include <spdlog/details/periodic_worker-inl.h>
 #include <spdlog/details/thread_pool-inl.h>
 
-template class SPDLOG_API spdlog::details::mpmc_blocking_queue<spdlog::details::async_msg>;
-
-#if _MSC_VER
+#if defined(_MSC_VER)
 #pragma warning(pop)
 #endif

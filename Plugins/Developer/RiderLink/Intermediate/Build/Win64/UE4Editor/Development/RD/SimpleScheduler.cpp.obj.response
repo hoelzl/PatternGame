@@ -31,23 +31,23 @@
 /wd4244
 /wd4838
 /I .
-/I C:\Users\tc\Courses\CodingAkademie\Additional-C++\PatternGame\Plugins\Developer\RiderLink\Source
-/I C:\Users\tc\Courses\CodingAkademie\Additional-C++\PatternGame\Plugins\Developer\RiderLink\Source\RD\src
-/I C:\Users\tc\Courses\CodingAkademie\Additional-C++\PatternGame\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp
-/I C:\Users\tc\Courses\CodingAkademie\Additional-C++\PatternGame\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main
-/I C:\Users\tc\Courses\CodingAkademie\Additional-C++\PatternGame\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp
-/I C:\Users\tc\Courses\CodingAkademie\Additional-C++\PatternGame\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main
-/I C:\Users\tc\Courses\CodingAkademie\Additional-C++\PatternGame\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\util
-/I C:\Users\tc\Courses\CodingAkademie\Additional-C++\PatternGame\Plugins\Developer\RiderLink\Source\RD\src\rd_gen_cpp\src
-/I C:\Users\tc\Courses\CodingAkademie\Additional-C++\PatternGame\Plugins\Developer\RiderLink\Source\RD\thirdparty
-/I C:\Users\tc\Courses\CodingAkademie\Additional-C++\PatternGame\Plugins\Developer\RiderLink\Source\RD\thirdparty\ordered-map\include
-/I C:\Users\tc\Courses\CodingAkademie\Additional-C++\PatternGame\Plugins\Developer\RiderLink\Source\RD\thirdparty\optional\tl
-/I C:\Users\tc\Courses\CodingAkademie\Additional-C++\PatternGame\Plugins\Developer\RiderLink\Source\RD\thirdparty\variant\include
-/I C:\Users\tc\Courses\CodingAkademie\Additional-C++\PatternGame\Plugins\Developer\RiderLink\Source\RD\thirdparty\string-view-lite\include
-/I C:\Users\tc\Courses\CodingAkademie\Additional-C++\PatternGame\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include
-/I C:\Users\tc\Courses\CodingAkademie\Additional-C++\PatternGame\Plugins\Developer\RiderLink\Source\RD\thirdparty\clsocket\src
-/I C:\Users\tc\Courses\CodingAkademie\Additional-C++\PatternGame\Plugins\Developer\RiderLink\Source\RD\thirdparty\CTPL\include
-/I C:\Users\tc\Courses\CodingAkademie\Additional-C++\PatternGame\Plugins\Developer\RiderLink\Source\RD
+/I G:\Unreal\Projects\Courses\PatternGame\Plugins\Developer\RiderLink\Source
+/I G:\Unreal\Projects\Courses\PatternGame\Plugins\Developer\RiderLink\Source\RD\src
+/I G:\Unreal\Projects\Courses\PatternGame\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp
+/I G:\Unreal\Projects\Courses\PatternGame\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main
+/I G:\Unreal\Projects\Courses\PatternGame\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp
+/I G:\Unreal\Projects\Courses\PatternGame\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main
+/I G:\Unreal\Projects\Courses\PatternGame\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\util
+/I G:\Unreal\Projects\Courses\PatternGame\Plugins\Developer\RiderLink\Source\RD\src\rd_gen_cpp\src
+/I G:\Unreal\Projects\Courses\PatternGame\Plugins\Developer\RiderLink\Source\RD\thirdparty
+/I G:\Unreal\Projects\Courses\PatternGame\Plugins\Developer\RiderLink\Source\RD\thirdparty\ordered-map\include
+/I G:\Unreal\Projects\Courses\PatternGame\Plugins\Developer\RiderLink\Source\RD\thirdparty\optional\tl
+/I G:\Unreal\Projects\Courses\PatternGame\Plugins\Developer\RiderLink\Source\RD\thirdparty\variant\include
+/I G:\Unreal\Projects\Courses\PatternGame\Plugins\Developer\RiderLink\Source\RD\thirdparty\string-view-lite\include
+/I G:\Unreal\Projects\Courses\PatternGame\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include
+/I G:\Unreal\Projects\Courses\PatternGame\Plugins\Developer\RiderLink\Source\RD\thirdparty\clsocket\src
+/I G:\Unreal\Projects\Courses\PatternGame\Plugins\Developer\RiderLink\Source\RD\thirdparty\CTPL\include
+/I G:\Unreal\Projects\Courses\PatternGame\Plugins\Developer\RiderLink\Source\RD
 /I Runtime
 /I Runtime\TraceLog\Public
 /I Runtime\Core\Public
@@ -93,16 +93,16 @@
 /I Runtime\TraceLog\Public\Trace
 /I Runtime\TraceLog\Public\Trace\Detail
 /I Runtime\TraceLog\Public\Trace\Detail\Protocols
-/I "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29333\INCLUDE"
+/I "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\INCLUDE"
 /I "C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.2\include\um"
-/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt"
-/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared"
-/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um"
-/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt"
-"C:\Users\tc\Courses\CodingAkademie\Additional-C++\PatternGame\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\scheduler\SimpleScheduler.cpp"
-/FI"C:\Users\tc\Courses\CodingAkademie\Additional-C++\PatternGame\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UE4Editor\Development\RD\Definitions.h"
-/Fo"C:\Users\tc\Courses\CodingAkademie\Additional-C++\PatternGame\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UE4Editor\Development\RD\SimpleScheduler.cpp.obj"
+/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\ucrt"
+/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\shared"
+/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\um"
+/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\winrt"
+"G:\Unreal\Projects\Courses\PatternGame\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\scheduler\SimpleScheduler.cpp"
+/FI"G:\Unreal\Projects\Courses\PatternGame\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UE4Editor\Development\RD\Definitions.h"
+/Fo"G:\Unreal\Projects\Courses\PatternGame\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UE4Editor\Development\RD\SimpleScheduler.cpp.obj"
 /TP
 /GR
 /W4
-/std:c++14
+/std:c++17

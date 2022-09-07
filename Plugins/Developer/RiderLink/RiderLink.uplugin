@@ -1,7 +1,7 @@
 {
   "FileVersion": 3,
   "Version": 1,
-  "VersionName": "2020.3.116",
+  "VersionName": "2022.2.0.153",
   "FriendlyName": "RiderLink",
   "Description": "Plugin for establishing IPC connection with JetBrains Rider IDE",
   "Category": "Programming",
@@ -10,7 +10,6 @@
   "DocsURL": "",
   "MarketplaceURL": "",
   "SupportURL": "",
-  "EngineVersion": "4.26.0",
   "CanContainContent": false,
   "IsBetaVersion": true,
   "Installed": false,
@@ -18,42 +17,32 @@
     {
       "Name": "RD",
       "Type": "EditorNoCommandlet",
-      "LoadingPhase": "PreDefault",
-      "WhitelistPlatforms": [
-        "Win64"
-      ]
+      "LoadingPhase": "PreDefault"
     },
     {
       "Name": "RiderLink",
       "Type": "EditorNoCommandlet",
-      "LoadingPhase": "PreDefault",
-      "WhitelistPlatforms": [
-        "Win64"
-      ]
+      "LoadingPhase": "PreDefault"
     },
     {
-      "Name": "RiderLoggingExtension",
+      "Name": "RiderLogging",
       "Type": "EditorNoCommandlet",
-      "LoadingPhase": "PreDefault",
-      "WhitelistPlatforms": [
-        "Win64"
-      ]
+      "LoadingPhase": "PreDefault"
     },
     {
-      "Name": "RiderBlueprintExtension",
+      "Name": "RiderBlueprint",
       "Type": "EditorNoCommandlet",
-      "LoadingPhase": "Default",
-      "WhitelistPlatforms": [
-        "Win64"
-      ]
+      "LoadingPhase": "Default"
     },
     {
-      "Name": "RiderGameControlExtension",
+      "Name": "RiderGameControl",
       "Type": "EditorNoCommandlet",
-      "LoadingPhase": "Default",
-      "WhitelistPlatforms": [
-        "Win64"
-      ]
+      "LoadingPhase": "Default"
+    },
+    {
+      "Name": "RiderShaderInfo",
+      "Type": "EditorNoCommandlet",
+      "LoadingPhase": "PostEngineInit"
     }
   ],
   "EnabledByDefault": true

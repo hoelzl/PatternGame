@@ -1,7 +1,7 @@
 #ifndef RD_CPP_UNSAFEBUFFER_H
 #define RD_CPP_UNSAFEBUFFER_H
 
-#if _MSC_VER
+#if defined(_MSC_VER)
 #pragma warning(push)
 #pragma warning(disable:4251)
 #endif
@@ -146,7 +146,7 @@ public:
 	void write_array(C<T, A> const& container)
 	{
 		using rd::size;
-		const int32_t& len = size(container);
+		const int32_t& len = rd::size(container);
 		write_integral<int32_t>(static_cast<int32_t>(len));
 		if (len > 0)
 		{
@@ -155,7 +155,7 @@ public:
 	}
 
 	template <template <class, class> class C, typename T, typename A = allocator<T>,
-		typename = typename std::enable_if_t<!std::is_abstract<T>::value>>
+		typename = typename std::enable_if_t<!rd::util::in_heap_v<T>>>
 	void write_array(C<T, A> const& container, std::function<void(T const&)> writer)
 	{
 		using rd::size;
@@ -195,6 +195,10 @@ public:
 
 	void write_char(wchar_t value);
 
+	void write_char16_string(const uint16_t* data, size_t len);
+
+	uint16_t * read_char16_string();
+
 	std::wstring read_wstring();
 
 	void write_wstring(std::wstring const& value);
@@ -233,7 +237,7 @@ public:
 		write_integral<int32_t>(static_cast<int32_t>(x));
 	}
 
-	template <typename T, typename F, typename = typename std::enable_if_t<util::is_same_v<typename std::result_of_t<F()>, T>>>
+	template <typename T, typename F, typename = typename std::enable_if_t<util::is_same_v<typename util::result_of_t<F()>, T>>>
 	opt_or_wrapper<T> read_nullable(F&& reader)
 	{
 		bool nullable = !read_bool();
@@ -245,7 +249,7 @@ public:
 	}
 
 	template <typename T, typename F,
-		typename = typename std::enable_if_t<util::is_same_v<typename std::result_of_t<F()>, Wrapper<T>>>>
+		typename = typename std::enable_if_t<util::is_same_v<typename util::result_of_t<F()>, Wrapper<T>>>>
 	Wrapper<T> read_nullable(F&& reader)
 	{
 		bool nullable = !read_bool();
@@ -318,7 +322,7 @@ public:
 	ByteArray& get_data();
 };
 }	 // namespace rd
-#if _MSC_VER
+#if defined(_MSC_VER)
 #pragma warning(pop)
 #endif
 

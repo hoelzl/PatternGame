@@ -3,7 +3,7 @@
 
 #pragma once
 
-#if _MSC_VER
+#if defined(_MSC_VER)
 #pragma warning(push)
 #pragma warning(disable:4251)
 #endif
@@ -36,9 +36,9 @@ protected:
 } // namespace spdlog
 
 #ifdef SPDLOG_HEADER_ONLY
-#include "sink-inl.h"
+#    include "sink-inl.h"
 #endif
 
-#if _MSC_VER
+#if defined(_MSC_VER)
 #pragma warning(pop)
 #endif

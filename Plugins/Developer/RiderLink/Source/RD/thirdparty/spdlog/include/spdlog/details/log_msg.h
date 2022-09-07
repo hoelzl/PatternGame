@@ -3,7 +3,7 @@
 
 #pragma once
 
-#if _MSC_VER
+#if defined(_MSC_VER)
 #pragma warning(push)
 #pragma warning(disable:4251)
 #endif
@@ -20,6 +20,7 @@ struct SPDLOG_API log_msg
     log_msg(source_loc loc, string_view_t logger_name, level::level_enum lvl, string_view_t msg);
     log_msg(string_view_t logger_name, level::level_enum lvl, string_view_t msg);
     log_msg(const log_msg &other) = default;
+    log_msg &operator=(const log_msg &other) = default;
 
     string_view_t logger_name;
     level::level_enum level{level::off};
@@ -37,9 +38,9 @@ struct SPDLOG_API log_msg
 } // namespace spdlog
 
 #ifdef SPDLOG_HEADER_ONLY
-#include "log_msg-inl.h"
+#    include "log_msg-inl.h"
 #endif
 
-#if _MSC_VER
+#if defined(_MSC_VER)
 #pragma warning(pop)
 #endif
