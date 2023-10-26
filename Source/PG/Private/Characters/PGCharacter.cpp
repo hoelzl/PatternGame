@@ -1,12 +1,11 @@
 // Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
 // Copyright 2015 Matthias Hölzl, All Rights Reserved.
 
-
-#include "PG.h"
 #include "PGCharacter.h"
+#include "Kismet/KismetMathLibrary.h"
+#include "PG.h"
 #include "Pickups/Pickup.h"
 #include "Pickups/PickupHandler.h"
-#include "Kismet/KismetMathLibrary.h"
 
 //////////////////////////////////////////////////////////////////////////
 // APGCharacter
@@ -40,10 +39,11 @@ void APGCharacter::ConfigureControllerRotation()
 	bUseControllerRotationRoll = false;
 }
 
+// ReSharper disable once CppMemberFunctionMayBeConst
 void APGCharacter::ConfigureCharacterMovement()
 {
 	// Configure character movement
-	GetCharacterMovement()->bOrientRotationToMovement = true; // Character moves in the direction of input...	
+	GetCharacterMovement()->bOrientRotationToMovement = true;			 // Character moves in the direction of input...
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 540.0f, 0.0f); // ...at this rotation rate
 	GetCharacterMovement()->JumpZVelocity = 600.f;
 	GetCharacterMovement()->AirControl = 0.2f;
@@ -56,7 +56,7 @@ void APGCharacter::ConfigureCameraBoom()
 	// Configure the camera boom
 	// CameraBoom->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 	CameraBoom->SetupAttachment(RootComponent);
-	CameraBoom->TargetArmLength = 300.0f;       // The camera follows at this distance behind the character	
+	CameraBoom->TargetArmLength = 300.0f;		// The camera follows at this distance behind the character
 	CameraBoom->bUsePawnControlRotation = true; // Rotate the arm based on the controller
 }
 
@@ -86,7 +86,7 @@ void APGCharacter::ConfigureCollectionSphere()
 // ReSharper disable once CppMemberFunctionMayBeConst
 void APGCharacter::ConfigureMeshCollision()
 {
-	auto MeshComponent = GetMesh();
+	auto* MeshComponent = GetMesh();
 	// TODO: Dynamically switch the collision profiles so that the mesh is toggled between "Character"
 	// and "Pawn" depending on whether the capsule registers an overlap.
 	static FName MeshCollisionProfile = FName(TEXT("Pawn"));
@@ -128,7 +128,7 @@ void APGCharacter::HandlePickup(APickup* Pickup)
 void APGCharacter::UpdatePower(float PowerChange)
 {
 	CurrentPower += PowerChange;
-	float NewSpeed{BaseSpeed + SpeedFactor * CurrentPower};
+	const float NewSpeed{BaseSpeed + SpeedFactor * CurrentPower};
 	GetCharacterMovement()->MaxWalkSpeed = FMath::Clamp(NewSpeed, BaseSpeed, MaxSpeed);
 	// Apply visual effect
 	PowerChangeEffect();
@@ -142,8 +142,8 @@ void APGCharacter::CollectPickups()
 
 	for (int32 NumCollected = 0; NumCollected < CollectedActors.Num(); ++NumCollected)
 	{
-		APickup* const TestPickup{Cast<APickup>(CollectedActors[NumCollected])};
-		if (TestPickup && !TestPickup->IsPendingKill() && TestPickup->IsActive())
+		if (APickup* const TestPickup{Cast<APickup>(CollectedActors[NumCollected])};
+			TestPickup && IsValid(TestPickup) && TestPickup->IsActive())
 		{
 			TestPickup->WasCollected(TScriptInterface<IPickupCollector>{this});
 			// HandlePickup(TestPickup);
@@ -153,7 +153,7 @@ void APGCharacter::CollectPickups()
 
 void APGCharacter::PowerChangeEffect()
 {
-	const float PowerRatio{ FMath::Clamp(CurrentPower / (2 * InitialPower) - 0.33f, 0.f, 1.f)};
+	const float PowerRatio{FMath::Clamp(CurrentPower / (2 * InitialPower) - 0.33f, 0.f, 1.f)};
 	const FLinearColor Color{UKismetMathLibrary::LinearColorLerp(ZeroPowerColor, FullPowerColor, PowerRatio)};
 
 	PowerMaterial->SetVectorParameterValue(PowerChangeParameter, Color);
@@ -210,7 +210,7 @@ void APGCharacter::MoveRight(float Value)
 		const FRotator Rotation = Controller->GetControlRotation();
 		const FRotator YawRotation(0, Rotation.Yaw, 0);
 
-		// get right vector 
+		// get right vector
 		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 		// add movement in that direction
 		AddMovementInput(Direction, Value);

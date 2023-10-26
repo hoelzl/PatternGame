@@ -13,12 +13,13 @@ UCLASS(Abstract, Blueprintable, EditInlineNew)
 class PG_API UPickupFactory : public UObject
 {
 	GENERATED_BODY()
-	
+
 public:
-	virtual APickup* SpawnPickup(AActor* Owner, APawn* Instigator, FVector SpawnLocation) ;
+	virtual APickup* SpawnPickup(AActor* Owner, APawn* Instigator, FVector SpawnLocation);
 
 protected:
 	UPickupFactory();
 
-	static APickup* SpawnPickupOfType(TSubclassOf<APickup> Type, AActor* Owner, APawn* Instigator, FVector SpawnLocation);
+	static APickup* SpawnPickupOfType(TSubclassOf<APickup> Type, AActor* Owner, APawn* Instigator,
+									  const FVector& SpawnLocation);
 };

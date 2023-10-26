@@ -1,8 +1,7 @@
 // Copyright (c) 2015, Matthias Hölzl
 
-#include "PG.h"
 #include "PickupFactory.h"
-
+#include "PG.h"
 
 class APickup* UPickupFactory::SpawnPickup(AActor* Owner, APawn* Instigator, FVector SpawnLocation)
 {
@@ -10,17 +9,16 @@ class APickup* UPickupFactory::SpawnPickup(AActor* Owner, APawn* Instigator, FVe
 	return nullptr;
 }
 
-
 UPickupFactory::UPickupFactory()
 {
 }
 
-class APickup* UPickupFactory::SpawnPickupOfType(TSubclassOf<APickup> Type, AActor* Owner, APawn* Instigator, FVector SpawnLocation)
+class APickup* UPickupFactory::SpawnPickupOfType(TSubclassOf<APickup> Type, AActor* Owner, APawn* Instigator,
+												 const FVector& SpawnLocation)
 {
 	if (Type != nullptr)
 	{
-		UWorld* const World = Owner->GetWorld();
-		if (World)
+		if (UWorld* const World = Owner->GetWorld())
 		{
 			FActorSpawnParameters SpawnParams;
 			SpawnParams.Owner = Owner;

@@ -1,0 +1,27 @@
+---
+Language:        Cpp
+BasedOnStyle:  LLVM
+IndentWidth:     4
+TabWidth:        4
+UseTab:          Always
+Standard:        Cpp11
+BreakBeforeBraces: Allman
+PointerAlignment: Left
+AccessModifierOffset: -4
+AllowShortFunctionsOnASingleLine: None
+ColumnLimit: 125
+SpacesInAngles: false
+BinPackParameters: true
+BreakConstructorInitializers: BeforeComma
+BreakStringLiterals: true
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+Cpp11BracedListStyle: true
+ReflowComments: true
+IncludeCategories:
+  - Regex:    '^"CoreMinimal.h"$'
+    Priority: 0
+  - Regex:    '".*\.generated\.h"$'
+    Priority: 2
+  - Regex:    '.*'
+    Priority: 1
+...

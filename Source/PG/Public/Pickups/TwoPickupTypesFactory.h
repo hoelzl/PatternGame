@@ -2,8 +2,8 @@
 
 #pragma once
 
-#include "PickupFactory.h"
 #include "Pickup.h"
+#include "PickupFactory.h"
 #include "TwoPickupTypesFactory.generated.h"
 
 /**
@@ -13,7 +13,7 @@ UCLASS(AutoExpandCategories = "Spawning")
 class PG_API UTwoPickupTypesFactory : public UPickupFactory
 {
 	GENERATED_BODY()
-	
+
 public:
 	UTwoPickupTypesFactory();
 

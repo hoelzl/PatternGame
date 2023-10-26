@@ -1,14 +1,12 @@
 // Copyright (c) 2015, Matthias Hölzl
 
-#include "PG.h"
-#include "Pickup.h"
+#include "TwoPickupTypesFactory.h"
 #include "BatteryPickup.h"
 #include "EnergyDrainingPickup.h"
-#include "TwoPickupTypesFactory.h"
+#include "PG.h"
+#include "Pickup.h"
 
-
-UTwoPickupTypesFactory::UTwoPickupTypesFactory() :
-	Type1Probability{ 0.8f }
+UTwoPickupTypesFactory::UTwoPickupTypesFactory() : Type1Probability{0.8f}
 {
 	CreatedType1 = ABatteryPickup::StaticClass();
 	CreatedType2 = AEnergyDrainingPickup::StaticClass();

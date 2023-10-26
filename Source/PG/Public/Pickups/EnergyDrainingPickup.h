@@ -12,8 +12,7 @@ UCLASS()
 class PG_API AEnergyDrainingPickup : public APowerChangingPickup
 {
 	GENERATED_BODY()
-	
+
 public:
 	AEnergyDrainingPickup();
-	
 };

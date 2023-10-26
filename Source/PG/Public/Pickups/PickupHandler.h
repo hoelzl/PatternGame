@@ -14,9 +14,8 @@ UCLASS()
 class PG_API UPickupHandler : public UObject
 {
 	GENERATED_BODY()
-    
+
 public:
-    
-    UFUNCTION(BlueprintCallable, Category = "Power")
-    virtual bool HandlePickup(AActor* Collector, class APickup* Pickup);
+	UFUNCTION(BlueprintCallable, Category = "Power")
+	virtual bool HandlePickup(AActor* Collector, class APickup* Pickup);
 };

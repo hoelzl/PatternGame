@@ -1,9 +1,8 @@
 // Copyright (c) 2015, Matthias Hölzl
 
-#include "PG.h"
-#include "OwenPowerChangingPickupHandler.h"
 #include "OwenCharacter.h"
-
+#include "OwenPowerChangingPickupHandler.h"
+#include "PG.h"
 
 AOwenCharacter::AOwenCharacter()
 {
@@ -23,7 +22,7 @@ void AOwenCharacter::ConfigureMesh()
 	static auto SkeletalMeshFinder = ConstructorHelpers::FObjectFinder<USkeletalMesh>(SkeletalMeshName);
 	if (SkeletalMeshFinder.Succeeded())
 	{
-		auto MeshComponent = GetMesh();
+		auto* MeshComponent = GetMesh();
 		MeshComponent->SetSkeletalMesh(SkeletalMeshFinder.Object);
 		MeshComponent->SetRelativeLocation(FVector(0.f, 0.f, -95.f));
 		MeshComponent->SetRelativeRotation(FRotator(0.f, 270.f, 0.f));
@@ -44,10 +43,9 @@ void AOwenCharacter::ConfigureAnimationBlueprint() const
 void AOwenCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 	// Ensure that we only create a pickup handler when it is contained in a valid world.
-	UWorld* World{ GetWorld() };
-	if (World)
+	if (UWorld * World{GetWorld()})
 	{
 		PickupHandlers.Add(NewObject<UOwenPowerChangingPickupHandler>(World, FName(TEXT("OwenDefaultPickupHandler"))));
 	}

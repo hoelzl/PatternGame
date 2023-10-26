@@ -1,24 +1,21 @@
 // Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
 // Copyright 2015 Matthias Hölzl, All Rights Reserved.
 
-#include "PG.h"
 #include "PGGameMode.h"
+#include "Blueprint/UserWidget.h"
+#include "Characters/RobotCharacter.h"
+#include "Kismet/GameplayStatics.h"
+#include "PG.h"
 #include "PGGameInstance.h"
 #include "PGPlayerController.h"
-#include "Characters/RobotCharacter.h"
 #include "Utilities/SpawnVolume.h"
-#include "Kismet/GameplayStatics.h"
-#include "Blueprint/UserWidget.h"
 
-APGGameMode::APGGameMode() :
-    PowerToWinFactor{ 2.f },
-	DecayRate{ 0.05f },
-	CurrentGameState{ EPGPlayState::EUnknown }
+APGGameMode::APGGameMode() : PowerToWinFactor{2.f}, DecayRate{0.05f}, CurrentGameState{EPGPlayState::EUnknown}
 {
 
-	UWorld* World = GetWorld();
+	const UWorld* World = GetWorld();
 	UGameInstance* GameInstance = (World != nullptr) ? World->GetGameInstance() : nullptr;
-	UPGGameInstance* PGGameInstance = Cast<UPGGameInstance>(GameInstance);
+	const UPGGameInstance* PGGameInstance = Cast<UPGGameInstance>(GameInstance);
 
 	if (PGGameInstance && PGGameInstance->PlayerCharacterClass)
 	{
@@ -47,8 +44,7 @@ void APGGameMode::BeginPlay()
 	SetCurrentGameState(EPGPlayState::EPlaying);
 
 	// Set up victory conditions
-	APGCharacter* PlayerCharacter = Cast<APGCharacter>(UGameplayStatics::GetPlayerCharacter(this, 0));
-	if (PlayerCharacter)
+	if (const APGCharacter* PlayerCharacter = Cast<APGCharacter>(UGameplayStatics::GetPlayerCharacter(this, 0)))
 	{
 		PowerToWin = PowerToWinFactor * PlayerCharacter->GetInitialPower();
 	}
@@ -68,8 +64,7 @@ void APGGameMode::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	APGCharacter* MyCharacter{ Cast<APGCharacter>(UGameplayStatics::GetPlayerPawn(this, 0)) };
-	if (MyCharacter)
+	if (APGCharacter* MyCharacter = Cast<APGCharacter>(UGameplayStatics::GetPlayerPawn(this, 0)))
 	{
 		if (MyCharacter->GetCurrentPower() > PowerToWin)
 		{
@@ -138,14 +133,12 @@ void APGGameMode::HandleNewState(EPGPlayState NewState)
 			Volume->SetSpawningActive(false);
 		}
 		// Block user input
-		APlayerController* PlayerController{ UGameplayStatics::GetPlayerController(this, 0) };
-		if (PlayerController)
+		if (APlayerController* PlayerController = UGameplayStatics::GetPlayerController(this, 0))
 		{
 			PlayerController->SetCinematicMode(true, false, false, true, false);
 		}
 		// Ragdoll the character
-		ACharacter* PlayerCharacter{ UGameplayStatics::GetPlayerCharacter(this, 0) };
-		if (PlayerCharacter)
+		if (const ACharacter* PlayerCharacter = UGameplayStatics::GetPlayerCharacter(this, 0))
 		{
 			PlayerCharacter->GetMesh()->SetSimulatePhysics(true);
 			PlayerCharacter->GetMovementComponent()->MovementState.bCanJump = false;

@@ -14,7 +14,7 @@ class PG_API AOwenCharacter : public APGCharacter
 {
 private:
 	GENERATED_BODY()
-	
+
 public:
 	AOwenCharacter();
 	virtual void BeginPlay() override;

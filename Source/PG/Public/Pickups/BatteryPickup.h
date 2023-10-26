@@ -12,9 +12,8 @@ UCLASS()
 class PG_API ABatteryPickup : public APowerChangingPickup
 {
 	GENERATED_BODY()
-	
+
 public:
 	// Sets default values for this battery's properties
 	ABatteryPickup();
-
 };

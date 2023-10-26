@@ -2,8 +2,8 @@
 
 #pragma once
 
-#include "PickupFactory.h"
 #include "Pickup.h"
+#include "PickupFactory.h"
 #include "SinglePickupTypeFactory.generated.h"
 
 /**

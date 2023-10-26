@@ -6,7 +6,7 @@
 #include "PickupCollector.h"
 #include "Pickup.generated.h"
 
-/* 
+/*
  * The superclass for all actors that a player can pick up.
  * Typically they will have a (positive or negative) effect on the actor as
  * soon as they are picked up.
@@ -15,16 +15,19 @@ UCLASS(Abstract)
 class PG_API APickup : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	
+
 	// Called every frame
-	virtual void Tick( float DeltaSeconds ) override;
+	virtual void Tick(float DeltaSeconds) override;
 
 	// Return the mesh for the pickup
-	FORCEINLINE class UStaticMeshComponent* GetMeshComponent() const { return PickupMesh; };
+	FORCEINLINE class UStaticMeshComponent* GetMeshComponent() const
+	{
+		return PickupMesh;
+	};
 
 	// Return whether or not the Pickup is active
 	UFUNCTION(BlueprintPure, Category = "Pickup")
@@ -41,9 +44,9 @@ public:
 protected:
 	// Sets default values for this actor's properties
 	APickup();
-    
-    // True when the pickup can be used, false when the pickup is deactivated
-    bool bIsActive;
+
+	// True when the pickup can be used, false when the pickup is deactivated
+	bool bIsActive;
 
 	UPROPERTY()
 	TScriptInterface<IPickupCollector> Collector{};
@@ -76,5 +79,4 @@ private:
 	// Static mesh to represent the pickup in the level.
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pickup", meta = (AllowPrivateAccess = "true"))
 	class UStaticMeshComponent* PickupMesh;
-	
 };

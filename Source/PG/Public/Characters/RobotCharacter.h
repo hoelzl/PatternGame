@@ -13,13 +13,12 @@ UCLASS()
 class PG_API ARobotCharacter : public APGCharacter
 {
 	GENERATED_BODY()
-	
+
 public:
 	ARobotCharacter();
 	virtual void BeginPlay() override;
 
 private:
-
 	/** Provide defaults for the mesh and animations */
 	void ConfigureMeshAndAnimation();
 	void ConfigureMesh();

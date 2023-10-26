@@ -3,6 +3,6 @@
 
 #include "PG.h"
 
-IMPLEMENT_PRIMARY_GAME_MODULE( FDefaultGameModuleImpl, PG, "PG" );
+IMPLEMENT_PRIMARY_GAME_MODULE(FDefaultGameModuleImpl, PG, "PG");
 
 DEFINE_LOG_CATEGORY(PG)

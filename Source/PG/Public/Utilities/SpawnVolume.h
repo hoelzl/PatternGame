@@ -10,8 +10,8 @@ UCLASS()
 class PG_API ASpawnVolume : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	ASpawnVolume();
 
@@ -19,7 +19,10 @@ public:
 	virtual void BeginPlay() override;
 
 	// Returns the WhereToSpawn subobject
-	FORCEINLINE class UBoxComponent* GetWhereToSpawn() const { return WhereToSpawn; };
+	FORCEINLINE class UBoxComponent* GetWhereToSpawn() const
+	{
+		return WhereToSpawn;
+	};
 
 	// Find a random point within the BoxComponent
 	UFUNCTION(BlueprintPure, Category = "Spawning")
@@ -51,7 +54,7 @@ private:
 	// Box component to specify where pickups should be spawned
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Spawning", meta = (AllowPrivateAccess = "true"))
 	class UBoxComponent* WhereToSpawn;
-	
+
 	// Handle Spawning a new pickup.
 	void SpawnPickup();
 

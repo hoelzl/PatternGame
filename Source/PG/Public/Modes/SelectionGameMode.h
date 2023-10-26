@@ -2,8 +2,8 @@
 
 #pragma once
 
-#include "GameFramework/GameMode.h"
 #include "Characters/PGCharacter.h"
+#include "GameFramework/GameMode.h"
 #include "SelectionGameMode.generated.h"
 
 /**
@@ -13,9 +13,8 @@ UCLASS()
 class PG_API ASelectionGameMode : public AGameMode
 {
 	GENERATED_BODY()
-	
-public:
 
+public:
 	ASelectionGameMode();
 
 	virtual void BeginPlay() override;
@@ -27,7 +26,6 @@ public:
 	FName NextLevelName;
 
 protected:
-
 	// The widget class to use for our HUD screen
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "HUD", Meta = (BlueprintProtected = "true"))
 	TSubclassOf<class UUserWidget> HUDWidgetClass;
@@ -35,5 +33,4 @@ protected:
 	// The instance of the HUD, based on HUDWidgetClass;
 	UPROPERTY(BlueprintReadOnly, Category = "HUD")
 	class UUserWidget* HUDWidget;
-	
 };

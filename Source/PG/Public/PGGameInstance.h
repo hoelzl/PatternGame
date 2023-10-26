@@ -2,8 +2,8 @@
 
 #pragma once
 
-#include "Engine/GameInstance.h"
 #include "Characters/PGCharacter.h"
+#include "Engine/GameInstance.h"
 #include "PGGameInstance.generated.h"
 
 /**
@@ -20,5 +20,4 @@ class PG_API UPGGameInstance : public UGameInstance
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Selection")
 	TSubclassOf<APGCharacter> PlayerCharacterClass;
-	
 };

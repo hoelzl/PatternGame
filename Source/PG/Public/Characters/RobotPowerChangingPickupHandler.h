@@ -12,7 +12,7 @@ UCLASS()
 class PG_API URobotPowerChangingPickupHandler : public UPickupHandler
 {
 	GENERATED_BODY()
-	
+
 public:
-    virtual bool HandlePickup(AActor* Collector, class APickup* Pickup) override;
+	virtual bool HandlePickup(AActor* Collector, class APickup* Pickup) override;
 };

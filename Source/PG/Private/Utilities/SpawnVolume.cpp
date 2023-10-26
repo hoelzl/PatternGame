@@ -1,18 +1,14 @@
 // Copyright 2015 Matthias Hölzl, All Rights Reserved.
 
-#include "PG.h"
-#include "PGGameMode.h"
 #include "SpawnVolume.h"
-#include "Pickups/Pickup.h"
-#include "Pickups/SinglePickupTypeFactory.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "PG.h"
+#include "PGGameMode.h"
+#include "Pickups/SinglePickupTypeFactory.h"
 
 // Sets default values
-ASpawnVolume::ASpawnVolume() : 
-	// Set the spawn delay range
-	SpawnDelayRangeLow{ 1.0f },
-	SpawnDelayRangeHigh{ 4.5f }
+ASpawnVolume::ASpawnVolume() : SpawnDelayRangeLow{1.0f}, SpawnDelayRangeHigh{4.5f}
 {
 	PrimaryActorTick.bCanEverTick = false;
 
@@ -25,11 +21,10 @@ ASpawnVolume::ASpawnVolume() :
 void ASpawnVolume::BeginPlay()
 {
 	Super::BeginPlay();
-	UWorld* World = GetWorld();
+	const UWorld* World = GetWorld();
 	check(World && "Spawned actor while world does not exist?");
 
-	APGGameMode* GameMode{ Cast<APGGameMode>(UGameplayStatics::GetGameMode(this)) };
-	if (GameMode && !GameMode->IsPendingKill())
+	if (APGGameMode * GameMode{Cast<APGGameMode>(UGameplayStatics::GetGameMode(this))}; GameMode && IsValid(GameMode))
 	{
 		GameMode->RegisterSpawnVolume(this);
 	}
@@ -37,10 +32,10 @@ void ASpawnVolume::BeginPlay()
 
 FVector ASpawnVolume::GetRandomPointInVolume() const
 {
-	const FVector SpawnOrigin{ WhereToSpawn->Bounds.Origin };
-	const FVector SpawnExtent{ WhereToSpawn->Bounds.BoxExtent };
+	const FVector SpawnOrigin{WhereToSpawn->Bounds.Origin};
+	const FVector SpawnExtent{WhereToSpawn->Bounds.BoxExtent};
 
-	return UKismetMathLibrary::RandomPointInBoundingBox( SpawnOrigin, SpawnExtent );
+	return UKismetMathLibrary::RandomPointInBoundingBox(SpawnOrigin, SpawnExtent);
 }
 
 void ASpawnVolume::SetSpawningActive(bool bShouldSpawn)
@@ -69,4 +64,3 @@ void ASpawnVolume::UpdateSpawnTimer()
 	SpawnDelay = FMath::FRandRange(SpawnDelayRangeLow, SpawnDelayRangeHigh);
 	GetWorldTimerManager().SetTimer(SpawnTimer, this, &ASpawnVolume::SpawnPickup, SpawnDelay, false);
 }
-

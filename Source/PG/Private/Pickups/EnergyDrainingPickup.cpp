@@ -1,9 +1,8 @@
 // Copyright (c) 2015, Matthias Hölzl
 
-#include "PG.h"
 #include "EnergyDrainingPickup.h"
 #include "ConstructorHelpers.h"
-
+#include "PG.h"
 
 AEnergyDrainingPickup::AEnergyDrainingPickup()
 {

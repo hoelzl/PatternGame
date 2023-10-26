@@ -1,8 +1,8 @@
 // Copyright (c) 2015, Matthias Hölzl
 
-#include "PG.h"
-#include "BatteryPickup.h"
 #include "SinglePickupTypeFactory.h"
+#include "BatteryPickup.h"
+#include "PG.h"
 
 USinglePickupTypeFactory::USinglePickupTypeFactory()
 {

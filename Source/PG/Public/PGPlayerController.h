@@ -35,4 +35,3 @@ protected:
 	void TouchStarted(ETouchIndex::Type FingerIndex, FVector Location);
 	void TouchStopped(ETouchIndex::Type FingerIndex, FVector Location);
 };
-

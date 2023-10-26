@@ -18,7 +18,10 @@ public:
 
 	// Public way to access the battery's power level
 	UFUNCTION(BlueprintPure, Category = "Power")
-	float GetBatteryPower() const { return Power; };
+	float GetBatteryPower() const
+	{
+		return Power;
+	};
 
 protected:
 	// The amount of poser the battery gives to the character

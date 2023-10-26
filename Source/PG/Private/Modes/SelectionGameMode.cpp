@@ -1,15 +1,14 @@
 // Copyright (c) 2015, Matthias Hölzl
 
-#include "PG.h"
 #include "Modes/SelectionGameMode.h"
-#include "PGPlayerController.h"
-#include "PGGameInstance.h"
+#include "Blueprint/UserWidget.h"
 #include "Characters/RobotCharacter.h"
 #include "Kismet/GameplayStatics.h"
-#include "Blueprint/UserWidget.h"
+#include "PG.h"
+#include "PGGameInstance.h"
+#include "PGPlayerController.h"
 
-ASelectionGameMode::ASelectionGameMode() :
-	NextLevelName{ FName(TEXT("CollectionLevel")) }
+ASelectionGameMode::ASelectionGameMode() : NextLevelName{FName(TEXT("CollectionLevel"))}, HUDWidget{nullptr}
 {
 	DefaultPawnClass = ARobotCharacter::StaticClass();
 	PlayerControllerClass = APGPlayerController::StaticClass();
