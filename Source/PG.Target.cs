@@ -5,10 +5,11 @@ using System.Collections.Generic;
 
 public class PGTarget : TargetRules
 {
-	public PGTarget(TargetInfo Target) : base(Target)
-	{
-		Type = TargetType.Game;
+    public PGTarget(TargetInfo Target) : base(Target)
+    {
+        Type = TargetType.Game;
         ExtraModuleNames.Add("PG");
+        DefaultBuildSettings = BuildSettingsVersion.V4;
         // LaunchModuleName = "PG";
     }
 }
